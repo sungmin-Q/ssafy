@@ -68,3 +68,8 @@ commit = 얼리기
 vector
 iterator for
 노션 배우기
+
+git명령어
+git add -A
+git commit -m
+git push -u origin master
