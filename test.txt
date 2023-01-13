@@ -73,5 +73,7 @@ git명령어
 git add -A
 git commit -m
 git push -u origin master
+git clone git 주소 
+남에 꺼도 수정가능
 
 git commit -m "설명"
