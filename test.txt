@@ -1,1 +1,70 @@
-금요일
+서버와 통신
+json
+""로 시작 : " "
+문자열""로 지정
+배열,단일객체로 시작
+[{},{}]
+prettier alr+shift+f
+{}: 객체(key:value) 여러 프로퍼티 담기가능
+하나의 타입
+순서의 부제
+[]배열: 동일한 자료형 여러개의 집합
+배열의 원칙 동일한 형태의 예상
+배열 안의 객체
+key값으로 int,string,배열,함수,객체...들어가기 가능
+ajax: 크롬-(typing)>서버: 변경가능한 데이터만 제공(json)
+api: like리모컨
+서버와클라 모두 json으로 통신
+키는 유일해야함
+valued의 자료형 동일해야함
+is~~ bool자료형
+null
+0과 null 차이
+0: 숫자0
+null: 미지정(의도된 공백)
+json/js: 키값의 표현 " name"/name
+	마지막에 ,표기
+rest api: http프로토콜로 json을 주고 받는 원칙
+Get /api/v1/movies
+=>json형식의 영화 정보를 제공받음
+http 요청 메소드 (CRUD)
+{
+	GET	(READ)
+	POST	(CREATE)
+
+	PUT 	(UPDATE) 수정대상 전체
+	PATCH	(UPDATE) 수정대상 단일
+
+	DELETE	(DELETE)
+}
+
+ex) 	
+	GET /movies	전체
+	GET /movies/ 1534	일부
+	POST /movies 
+		{"movieName" : "슬램덩크", ...}
+	PATCH /movie/ 1534
+		{"movieName" : "슬램덩크", ...}
+	DELETE /movies		전체
+	DELETE /movies/ 1534 	일부
+
+파싱: 원래 있던 데이터를 원하는 데이터로 가져옴
+공공데이터포털
+json요청 후 응답
+원하는 데이터의 추출
+크롬: cntl+shift+t
+ctrl+shift+/ 주석
+버전관리sys
+포폴정리용
+add
+commit
+push
+git  -> 프로그램
+github -> git 커뮤니티
+shift+Rclick: 파워쉘
+add = 커밋 내용 담기
+commit = 얼리기
+
+vector
+iterator for
+노션 배우기
