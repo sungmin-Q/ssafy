@@ -1,1 +1,3 @@
 취업
+1. index.txt
+2. html로 변경
