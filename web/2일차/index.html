@@ -1,0 +1,75 @@
+justify-content
+메인축 적렬
+align-items
+메인에 대한 교차축 정렬
+
+display속성 2차원
+position속성 3차원
+위치와 무관한 경우 사용
+fixed 레이아웃 영향을 받지 않음
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .flex{
+      display: flex;
+      height: 200px;
+    }
+    div{
+      padding-bottom: 10px;
+      padding-top: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      border: 1px solid black;
+    }
+    .a{
+      flex: 2;
+    }
+    .b{
+      flex: 1;
+    }
+    .box1-wrap{
+      display: flex;
+      /* 컨테이너 담을 공간 없을 경우 줄바꿈 */
+      flex-wrap: wrap;
+      height: 300px;
+    }
+
+    .box1{
+      width: 80px;
+      height: 80px;
+      border: 1px solid blue;
+      background-color: skyblue;
+    }
+  </style>
+</head>
+<body>
+  <div class ="box1-wrap">
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+    <div class="box1">test</div>
+  </div>
+</body>
+</html>

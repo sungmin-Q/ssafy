@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+
+int main()
+{
+	// 역으로 접근
+	// 2중 for이용한 브루털 포스
+	int lst[9], sum = 0;
+	for (int i = 0; i < 9; i++) {
+		cin >> lst[i];
+		sum += lst[i];
+	}
+
+	int idx1, idx2;
+	for (idx1 = 0; idx1 < 9; idx1++) {
+		for (idx2 = idx1 + 1; idx2 < 9; idx2++) {
+			if (sum - lst[idx1] - lst[idx2] == 100) {
+				lst[idx1] = 0;
+				lst[idx2] = 0;
+				break;
+			}
+		}
+	}
+
+	sum = 0;
+	for (int i = 0; i < 9; i++)
+		cout << lst[i] << endl;
+
+}
