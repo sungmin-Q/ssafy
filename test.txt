@@ -77,3 +77,4 @@ git clone git 주소
 남에 꺼도 수정가능
 
 git commit -m "설명"
+git log q로 나가기
