@@ -1,2 +1,0 @@
-tasklist
-taskkill -f /pid (pid number)

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>안녕 나는 자룡이</h1>
+    <div class="container">
+      <div class="img-wrapper">
+        <img src="./jony.jpg" alt="자룡이" height="300"/>
+      </div>
+      <div class="hobby-list">
+        <h2>취미목록</h2>
+        <ul>
+          <li>영화보기</li>
+          <li>코딩하기</li>
+          <li>산책가기</li>
+          <li>게임하기</li>
+          <li>등산가기</li>
+        </ul>
+      </div>
+    </div>
+    <script>
+
+      // const img=document.querySelector(".img-wrapper");
+      // console.dir(img)
+      // img.src="./profile.jpg";
+      
+      const h1=document.querySelector("body > h1");
+      h1.textContent="pizza";
+
+      body > div > div.img-wrapper > img
+      // call by ref 이미지
+      const imgw=document.querySelector(".img-wrapper");
+      const img=imgw.querySelector("img");
+      const imgsorce=document.querySelector(".img-wrapper > img");
+      console.log(imgsorce);
+
+      //.hobby-list
+      const li=document.querySelectorALL(".hobby-list li ");
+      li[1].textContent=""
+      console.log(li);
+      document.querySelectorAll(".hobby-list li")[2].textContent="DDD";
+      const list=document.querySelectorAll(".hobby-list li");
+      list[0].textContent="value";
+
+      const list2=document.querySelectorAll(".hobby-list > ul");
+      console.log(list2[0]);
+      const list3=document.querySelector(".hobby-list li");
+      console.log(list3);
+
+
+      const list4=list2.querySelector(li);
+      console.log(list4)
+</script>
+  </body>
+</html>
+
+
+<!-- alt사진 못 가져온 경우 출력 -->
+<!-- 클래스,id가 중복되지 않을 경우 선택자 축약하여 사용가능 -->
+<!-- txt수정 textContent
+img수정 src경로 수정 -->
+<!-- 이미지 랩 -> 이미지로 접근가능
+쿼리 셀렉터  document 뿐만아니라 퀘리셀렉터에서 다시 접근 가능
+dom정보는 주소 복사
+querySelectorALL 공통정보를 배열로 가져옴 -->
+document.querySelectorAll(".hobby-list > ul");
+ul로 접근
+document.querySelectorAll(".hobby-list > ul > li");
+li로 접근
+const list3=document.querySelector(".hobby-list li");
+list의 자손 접근(알아서 찾음)

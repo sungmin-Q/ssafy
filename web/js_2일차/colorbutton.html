@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .font-red{
+      color: rgb(255, 0, 0);
+    }
+    .font-blue{
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1>hi</h1>
+  <button class="red">Redbutton</button>
+  <button class="black">Blackbutton</button>
+  <button class="toggle">toggle</button>
+  <button class="isred">isred</button>
+  <button class="blue">blue</button>
+
+  <script>
+    const h1=document.querySelector("h1");
+    const btn1=document.querySelector(".red");
+    const btn2=document.querySelector(".black");
+    const toggle=document.querySelector(".toggle");
+    const isRed=document.querySelector(".isred");
+    const btn3=document.querySelector(".blue");
+
+
+    console.log(h1);
+    console.log(btn1);
+    console.log(btn2);
+    console.log(toggle);
+    console.log(isRed);
+    console.log(btn3);
+
+    btn1.addEventListener("click",function(event){
+        h1.classList.add("font-red");
+    })
+
+    btn2.addEventListener("click",function(evnt){
+      h1.classList.remove("font-red");
+    })
+    
+    toggle.addEventListener("click",function(event){
+      h1.classList.toggle("font-red");
+    })
+
+    isRed.addEventListener("click",function(event){
+      const flag=h1.classList.contains("font-red");
+      console.log(flag);
+    })
+  
+    btn3.addEventListener("click",function(event){
+      h1.classList.replace("font-red","font-blue");
+    })
+    
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button>
+   button 
+  </button>
+  <div>누르지마</div>
+  <h1>이벤트</h1>
+  <button class="showInfoBtn">show info</button>
+  <div class="infoWrapper"></div>
+<script>
+    const showInfoBtn=document.querySelector(".showInfoBtn");
+    const infoWrapper=document.querySelector(".infoWrapper")
+    showInfoBtn.addEventListener("click",function(){
+      infoWrapper.innerHTML=`<div class =title-msg>하이</div?
+        <div>hello</>
+        <div>너는 이름이 뭐니</div>`
+    });
+
+</script>
+</body>
+</html>
+
+<!-- 
+**시험**
+const btn=document.queruyselct("button");
+creatElement()생성은 함,화면에 붙지 않은 상태
+create.createTextNode() 들어갈 텍스트
+객체.append(target노드) node안에 node 넣을때
+btnn.setAttribute() -->
+
+<!-- 
+const showInfoBtn=document.querySelector(".showInfoBtn");
+const infoWrapper=document.querySelector(".infoWrapper")
+showInfoBtn.addEventListener("click",function(){
+  infoWrapper.innerHTML=`<div class =title-msg>하이</div?
+    <div>hello</>`
+titl-msg는 `` -->

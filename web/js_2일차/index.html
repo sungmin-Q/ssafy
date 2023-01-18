@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>나의 결혼 상대는</h1>
+  <span>희망배우자</span>
+  <select >
+    <option value="선택">선택</option>
+    <option value="iu">iu</option>
+    <option value="전지현">전지현</option>
+    <option value="장미란">장미란</option>
+    <option value="김민경">김민경</option>
+  </select>
+  <div class="result-txt"></div>
+
+  <script>
+    const sel=document.querySelector("select");
+    const resultTxt=document.querySelector(".result-txt");
+    console.log(sel);
+    console.log(resultTxt);
+    sel.addEventListener('change',function(event){
+      resultTxt.textContent=event.target.value;
+    })
+  </script>
+</body>
+</html>
+<!-- value 값을 출력 -->
+<!-- 
+이벤트: 사용자가 일으키는 사건
+change가 일어났을때의 모든 변경사항 기록
+이벤트 값을 열어 value를 가져옴
+const input=document.querySelector("input");
+    const resultWrapper=document.querySelector(".result-wrapper");
+    input.addEventListener('change',function(event){
+      resultWrapper.textContent=event.target.value -->

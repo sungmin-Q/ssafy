@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>
+   <!-- <button>click</button> -->
+    <div>click2</div>
+    <script>
+      const btn=document.querySelector("div");
+      function showMessage(){
+       console.log("hi");
+      } 
+
+      btn.addEventListener("click",function(){console.log("hello");});
+      // 함수의 재사용 안함 이름을 넣지 않음
+    </script>
+  </h1>
+</body>
+</html>
+
+
+
+
+<!-- 클릭이벤트
+인라인 이벤트
+<button onclick="showMessage()">click</button>
+<script>
+  function showMessage(){
+    console.log("hi");
+    하나의 이벤트만 동작
+  } 
+
+  클릭이벤트
+  add event listner
+  const btn=document.querySelector("button");
+  btn.addEventListener("click",showMessage);
+  function showMessage(){
+   console.log("hi");
+  
+   여러개의 함수를 붙혀 사용가능
+  const btn=document.querySelector("button");
+      btn.addEventListener("click",showMessage);
+      btn.addEventListener("click",showMessage2);
+      function showMessage(){
+       console.log("hi");
+      } 
+      function showMessage2(){
+        console.log("즐겁다");
+      }
+  }  
+
+  이밴트 리스너
+  https://www.w3schools.com/jsref/dom_obj_event.asp
+  1번 파라미터: 이벤트의 종류(like click,scroll)
+  2번 파라미터: 함수의 이름 (예약된 함수)
+                (함수도 변수임)
+                함수 자체에
+  리스너는 버튼에 함정되지 않음
+  함수를 안에 넣어도 실행가능
+  const btn=document.querySelector("div");
+  function showMessage(){
+   console.log("hi");
+  } 
+
+
+  // 함수의 재사용 안함 이름을 넣지 않음
+  btn.addEventListener("click",showMessage);
+  const btn=document.querySelector("div");
+  function showMessage(){
+   console.log("hi");
+  } 
+
+  btn.addEventListener("click",function(){console.log("hello");});
+  사건 발새시 지정 함수의 호출
+  콜백함수 함수의 인자로 함수를 전달 이름만 제공,함수 자체 넣기
+   -->

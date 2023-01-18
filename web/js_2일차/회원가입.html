@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+    <input class="id" type="text" type="id" />
+  </div>
+
+  <div>
+    <input class="pass" type="text" type="password" />
+  </div>
+
+    <button>회원가입</button>
+    <input type="text">
+    <script>
+      const id = document.querySelector(".id");
+      const password = document.querySelector(".pass");
+      const btn = document.querySelector("button");
+      btn.addEventListener("click", function () {
+        if (id.value ==="" || password.value === "")
+          return;
+        alert("회원가입");
+      });
+    </script>
+  </body>
+</html>
+
+<!-- textContent,value차이
+input의 내부값 value
+<inpit type="text">textContent</inpit>
+원래 input은 닫힘 </input>없음
+value를통해 값을 받아야함 -->
+
+**시험 클래스 리스트 
