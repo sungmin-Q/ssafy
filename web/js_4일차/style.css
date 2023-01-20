@@ -7,3 +7,15 @@
 nav{
   z-index: 10;
 }
+.len{
+  width: 100%;
+}
+.cardcontainer{
+  /* display: flex;
+  flex-direction: row; */
+  margin-left: auto;
+}
+
+.squ{
+  border: 1010px solid black;
+}
