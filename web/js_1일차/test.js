@@ -106,3 +106,32 @@ person={
 
 }
 전체는 수정이 불가,일부는 가능
+
+const a="abc"+"def";
+a+"df"
+const b="bbq"+10;
+console.log(a,b);
+console.log(a.length,b.length);
+number와 결합시 자동 형변환
+
+const arr=[1,2,3,4,5];
+console.log(arr.length);
+arr도 오브젝트 length 프로퍼티 존재
+length 배열과 문자열 모두 사용가능
+
+비교연산**시험
+console.log(1=='1');  true  값만 비교
+console.log(1==='1'); false 타입까지
+
+===/!== 논리연산 
+
+const arr=[1,2,3];
+for(let i=0;i<a.length;i++){
+  console.log(arr[i]);
+}
+const 안 바뀜 -> 에러
+let의 사용
+
+const arr=[1,2,3];
+arr.push(4);
+console.log(arr);

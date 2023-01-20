@@ -1,0 +1,83 @@
+html이미지 넣기(알아둘것)
+background image url로 직접 접근
+image tag 속성과 태그
+
+절대경로,상대경로
+절대경로 - /를 통한 접근
+상대경로 - .를 통한 접근
+
+html tag
+h1,ul(li),a,p,input...
+어트리뷰터의 역할 알아야함
+
+css적용
+1. inline 
+2. head 분리
+3. file 분리
+	link tag를 이용해 접근함
+	link를 통한 접근 css	head
+	script를 통한 접근 js	body 맨 밑에 위치
+
+selector
+1.tag선택자
+2.class선택자 (class 여러개,다중 태그 가능)
+3.id선택자 (id는 하나만)
+
+글자색 지정
+그냥 color
+엘리먼트의 경우 backgroundcolor
+
+텍스트 정렬
+textalign - left,center,right,justyfy양쪽 정렬
+일반 엘리먼트의 경우
+margin 0
+##
+
+원만들기 
+boader radious 50%
+끝 꺽을때
+
+block,inline
+블록: 영역의 전체(한 줄 전체),크기변경가능
+	div,h1
+인라인:크리변경 불가 쓰여진것만,패딩,마진 불가
+	span,a,input
+none:안 보여질때
+
+position,display
+position 위치 옮길때 사용
+	relative 부모를 기준으로 상대위치를 측정
+	absolute static아닌 부모를 기준으로 측정함
+	position 미지정시 static
+	fixed 고정시킬때(like menubar)
+displaly 어떻게 보여줄지
+	flex 정렬할때 사용(연습)가운데 정렬,레이아웃
+
+z index 요소 겹치는 상황에서 순서를 결정
+js type
+number string boolean object 타입 알아놓을것
+참조형,원시형 알아놓을것
+
+var,let,const
+재선언 가능,재배정 가능
+const 객체와 배열 내용은 변경 가능
+
+==와===차이
+
+object값에 접근하는 방법 연습
+dom 가져오기위해
+document로 접근해 가져와야함
+
+qurysel
+dom의 요소를 가져옴
+sel과 selall의 차이
+addeventlistner사용법
+
+텍스트 콘텐트 태그내의 텍스트 가져옴
+벨류 실제 값을 가져옴
+
+크리에이트 aliment
+tag 생성시 사용
+
+**classlist클래스의 추가변경...
+cdn 서버위치

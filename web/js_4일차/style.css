@@ -1,0 +1,9 @@
+.carousel-item>img{
+  height: 100vh;
+  /* vw,vh: 브라우져 크기에 대음됨
+  %의 경우 부모의 영향 */
+}
+
+nav{
+  z-index: 10;
+}
