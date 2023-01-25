@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  main{
+    display: flex;
+  }
+  .first{
+    flex: 9;
+    position: relative;
+  }
+  .second{
+    flex: 3;
+  }
+  .frame1{
+    
+    border: 40px solid black;
+    height: 1200px;
+    margin-left: 800px;
+    box-shadow: 12px 12px 12px 1px gray;
+  }
+  .frame2{
+    border: 40px solid black;
+    height: 1200px;
+    margin-right: 100px;
+    box-shadow: 12px 12px 12px 1px gray;
+  }
+  
+  .circle{
+    
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 5px solid black;
+    border-radius: 50%;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+  }
+</style>
+<body>
+  <main>
+    <div class="first">
+    <img src="./flower.jpg" alt="" class="frame1">
+  </div>
+
+  <div class="second">
+    <img src="./tower.jpg" alt="" class="frame2">
+  </div>
+
+  <div class="circle">
+    <h2>NEW</h2>
+  </div>
+  </main>
+</body>
+</html>
