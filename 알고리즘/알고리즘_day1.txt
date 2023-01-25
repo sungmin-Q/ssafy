@@ -1,0 +1,56 @@
+문자 세기
+
+dat
+배열의 index에 의미를 부여
+
+int dat[];
+index 문자
+value 해당 문자의 수
+
+int DAT[256]={0}	Ascii code char data
+
+for(int i=0;tmp[i];i++)
+{
+	char now=tmp[i]++;
+	DAT[now]++;
+}
+
+id가 수로 되있는 상황에서 
+id를 index로
+value 회원의 데이터로 접근
+
+무었을 기반으로 어떤 데이터에 접근할지
+
+direction array
+
+**os
+c
+java+script
+
+통신 can기반지식
+git 기본지식
+sw공학기본지식
+DB
+
+협업의 경험
+osi 7
+기본적으로
+
+오토사 클래식 - c
+오토사 어뎁티브+ai - c++,linux
+모빌진 클래식
+
+코딩테스트
+for내부서 함수 2중for
+
+
+
+f10: step over	(한 칸씩)
+f11: step into	(함수까지)
+ctrl + f10: curser실행
+shift + f5: stepping 종료
+
+f9: breakpoint 이후
+f5: run(breakpoint에서 멈춤)
+
+f9: breakpoint
