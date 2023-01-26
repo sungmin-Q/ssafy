@@ -1,0 +1,161 @@
+//// box를 그만 생성
+	//if (a == 64) {			//끝낼 조건
+	//	cout << endl;		// 끝내며 처리
+	//	return;				//바로 끝내라
+	//}				
+	//						//더 큰 박스를 하나 만든뒤 기점으로 끝냄
+	//cout << a ;						// 진행해 나가며 처리 할 일
+	//func(a +1);			// 재귀의 시작접
+	//						// 1.현재 박스에서 다음 박스로 진행()
+	//						// 다음 box에서 내가 갖고 있던 값을 수정해 넘김
+	//cout << a;		// 재귀에서 돌아오며 처리할 일
+	//
+	//
+
+
+//64재귀
+	if (a > 64) {		// 2.기저조건(언제 끝낼지)
+		cout << endl;
+		return;
+	}
+
+	// 재귀 전 처리
+	cout << a << ' ';
+	func(a * 2); 			// 1.현재 박스에서 다음 박스로 진행()
+		// 다음 box에서 내가 갖고 있던 값을 수정해 넘김
+	// 재귀 후 처리
+	cout << a << ' ';
+
+// 지역변수 함수에 종속되어 함수 종료후 소거
+//3	전역
+//7	지역
+//10	전역
+//7	지역우선
+//10	변경된 전역변수
+// 자료형 변수 stack공간의 생성 매개변수
+// func1
+// a++ 후위증가 재귀서 조심
+// 초기화 유의
+
+//매개변수의 활용
+
+/*int bucket[200] = { 0 };
+	char target[5] = "AACD";
+	for(int i=0;i<5;i++)
+		bucket[target[i]] ++;
+	for (int x = 0; x < 200; x++) {
+		if (bucket[x] == 2)
+			cout << char(x);
+	}
+	return 0;*/
+	/*int bucket[200] = { 0 };
+	int arr[6] = { 4,1,1,1,5,4 };
+	for (int i = 0; i < 6; i++) {
+		bucket[arr[i]]++;
+	}
+	for (int i = 0; i < 200; i++) {
+		if (bucket[i] > 0)
+			cout << i << ':' << bucket[i] << endl;
+	}*/
+
+//2.기저조건 (2이상이면 오류)
+	if (a > 2)
+		return;
+//3.하고 싶은 처리
+	cout << a;
+
+//재귀
+//1.규칙찾기 now -> next
+	func(a + 1);	//동작 않하고 함수호출
+	func(a + 1);
+
+
+
+// 1.규칙찾기
+// 2.기저조건
+// 3.정보처리
+
+주사위
+
+char path[10];
+void func(int lev,int sum)
+{
+	if (lev == 3) {
+		cout << path << " = " << sum << endl;
+		return;
+	}
+
+	for (int i = 1; i <= 6; i++) {
+		path[lev] = '0' + i;
+		func(lev + 1, sum + i);
+		path[lev] = 0;
+	}
+}
+
+int main()
+{
+	func(0,0);
+}
+
+가지치기1
+#include <iostream>
+using namespace std;
+
+char path[10];
+void func(int lev,int sum)
+{
+	if (lev == 3) {
+		cout << path << " = " << sum << endl;
+		return;
+	}
+
+	for (int i = 1; i <= 6; i++) {
+		if (sum + i > 10) continue;
+		path[lev] = '0' + i;
+		func(lev + 1, sum + i);
+		path[lev] = 0;
+	}
+}
+
+가지치기2
+#include <iostream>
+using namespace std;
+
+char path[10];
+void func(int lev,int sum)
+{
+	if (sum > 10) return;
+	if (lev == 3) {
+		cout << path << " = " << sum << endl;
+		return;
+	}
+
+	for (int i = 1; i <= 6; i++) {
+		path[lev] = '0' + i;
+		func(lev + 1, sum + i);
+		path[lev] = 0;
+	}
+}
+
+가지치기1 들어가기전 검사
+가지치기2 이미 들어간후 나옴
+
+짝수
+#include <iostream>
+using namespace std;
+
+char path[10];
+void func(int lev,int sum)
+{
+	if (lev == 3) {
+		cout << path << " = " << sum << endl;
+		return;
+	}
+
+	for (int i = 2; i <= 4; i++) {
+		path[lev] = '0' + i;
+		func(lev + 1, sum + i);
+		path[lev] = 0;
+	}
+}
+
