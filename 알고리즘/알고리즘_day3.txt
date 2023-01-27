@@ -1,0 +1,374 @@
+now -> next
+a  	a+1
+*6
+
+0->n-1
+
+주사위 게임 나올수 있는 모든 경우
+입력: 정수 1개
+출력: 해당 주사위들이 나오는 모든 경우
+
+#include <iostream>
+using namespace std;
+int path[10]; //idx: 주사위 번째,value: 해당 주사위에서 어떤 눈을 뽑았는지
+// like dat path[박스번째] 해당 박스에서 뽑은 눈
+// 경로 기록용
+int N;
+
+
+void func(int lev)
+{
+	if (lev >= N) {			// 2.기저조건
+		for (int i = 0; i < N; i++)
+			cout << path[i] << ' ';
+		cout << endl;
+		return;
+	}
+
+	for (int i = 1; i <= 6; i++) {
+		//lev번째 주사위에서 i라는 눈 뽑음
+		path[lev] = i;		// 3. 기록 및 처리
+		func(lev + 1);		// 1. 재귀 기본구조
+	}
+}
+
+int main()
+{
+	cin >> N;
+	//주사위 개수 n 
+	func(0);
+}
+
+int path[10]; //idx: 주사위 번째,value: 해당 주사위에서 어떤 눈을 뽑았는지
+// like dat path[박스번째] 해당 박스에서 뽑은 눈
+// 경로 기록용
+int N;
+
+
+void func(int lev)
+{
+	if (lev >= N) {			// 2.기저조건
+		for (int i = 0; i < N; i++)
+			cout << path[i] << ' ';
+		cout << endl;
+		return;
+	}
+
+	for (int i = 1; i <= 6; i++) {
+		//lev번째 주사위에서 i라는 눈 뽑음
+		path[lev] = i;		// 3. 기록 및 처리
+		func(lev + 1);		// 1. 재귀 기본구조
+	}
+}
+
+int main()
+{
+	cin >> N;
+	//주사위 개수 n 
+	func(0);
+}
+
+주사위 게임 나올수 있는 모든 경우
+입력: 정수 1개
+출력: 해당 주사위들이 나오는 모든 경우,나온 눈은 사용이 불가능
+
+#include <iostream>
+using namespace std;
+int path[10]; //idx: 주사위 번째,value: 해당 주사위에서 어떤 눈을 뽑았는지
+// like dat path[박스번째] 해당 박스에서 뽑은 눈
+// 경로 기록용
+// 주사위 번째,눈
+// 주사위 눈을 뽑았었는지 -> 주사위의 눈 기록
+int visited[7]; //idx:주사위의 눈,value: 해당 주사위 눈을 뽑았었는지
+int N;
+
+
+void func(int lev)
+{
+	// 4.가지치기 (내 지금 선택을 판단)
+	if (lev >= N) {			// 2.기저조건
+		// 같은 눈을 뽑은 기록 없다면 출력
+		// 이미 뽑음 (비효울)
+
+		for (int i = 0; i < N; i++)
+			cout << path[i] << ' ';
+		cout << endl;
+		return;
+	}
+
+	for (int i = 1; i <= 6; i++) {
+		//lev번째 주사위에서 i라는 눈 뽑음
+
+		/*int flag = 0;
+		for (int j = 0; j < lev; j++) {
+			if (path[j] == i)
+				flag = 1;
+		}	반복이 존재
+		*/
+		
+		if (visited[i] == 1) //i는 이미 뽑혔다,skip
+			continue;
+		//return은 이번 주사위의 완전 종료
+		path[lev] = i;		// 3. 기록 및 처리
+		//4.가지치기
+		visited[i] = 1;		// i라는 눈 뽑힘
+		// i라는 눈을 뽑는것이 괜찮은지 검사
+		// 뽑아가며 판단 (효율)
+		
+		func(lev + 1);		// 1. 재귀 기본구조
+
+		// i의 눈 선택 완료됨
+		// 기록의 삭제가 필요함
+
+		// 3. 기록 및 처리의 복구
+		visited[i] = 0;
+		//i의 눈의 기록 삭제
+		path[lev] = 0;
+		//a 주사위에서 i눈 뽑은 기록의 삭제
+	}
+	
+}
+
+int main()
+{
+	cin >> N;
+	//주사위 개수 n 
+	func(0);
+}
+
+
+주사위의 합까지
+
+#include <iostream>
+using namespace std;
+int path[10]; //idx: 주사위 번째,value: 해당 주사위에서 어떤 눈을 뽑았는지
+// like dat path[박스번째] 해당 박스에서 뽑은 눈
+// 경로 기록용
+// 주사위 번째,눈
+// 주사위 눈을 뽑았었는지 -> 주사위의 눈 기록
+int visited[7]; //idx:주사위의 눈,value: 해당 주사위 눈을 뽑았었는지
+// 주사위 눈 -> 뽑았었는지
+//선택을 기반으로 해당 선택
+//visited,used
+int N;
+int sum;
+
+
+void func(int lev)
+{
+	// 4.가지치기 (내 지금 선택을 판단)
+	// backtraking
+	if (lev >= N) {			// 2.기저조건
+		// 같은 눈을 뽑은 기록 없다면 출력
+		// 이미 뽑음 (비효울)
+
+		for (int i = 0; i < N; i++)
+			cout << path[i] << ' ';
+		cout << "sum:" << sum;
+		cout << endl;
+		return;
+	}
+
+	for (int i = 1; i <= 6; i++) {
+		//lev번째 주사위에서 i라는 눈 뽑음
+
+		/*int flag = 0;
+		for (int j = 0; j < lev; j++) {
+			if (path[j] == i)
+				flag = 1;
+		}	반복이 존재
+		*/
+		
+		if (visited[i] == 1) //i는 이미 뽑혔다,skip
+			continue;
+		//return은 이번 주사위의 완전 종료
+		path[lev] = i;		// 3. 기록 및 처리
+		sum += i;		// 기록된 주사위를 합
+		//4.가지치기
+		visited[i] = 1;		// i라는 눈 뽑힘
+		// i라는 눈을 뽑는것이 괜찮은지 검사
+		// 뽑아가며 판단 (효율)
+		
+		func(lev + 1);		// 1. 재귀 기본구조
+
+		// i의 눈 선택 완료됨
+		// 기록의 삭제가 필요함
+
+		// 3. 기록 및 처리의 복구
+		visited[i] = 0;
+		//i의 눈의 기록 삭제
+		path[lev] = 0;
+		//a 주사위에서 i눈 뽑은 기록의 삭제
+		sum = 0;
+	}
+	
+}
+
+int main()
+{
+	cin >> N;
+	//주사위 개수 n 
+	func(0);
+}
+
+
+4*4 min,max
+#include <iostream>
+using namespace std;
+
+char path[10];
+int arr[4][4] = { 3,1,4,-2,1,1,-1,1,2,3,1,4,5,1,0,-3 };
+int mul = 1;
+
+int Max = -21e8;
+int Min = 21e8;
+void func(int lev, int mul)
+{
+	if (lev == 4) {
+		if (Max < mul)
+			Max = mul;
+		if (Min > mul)
+			Min = mul;
+		return;
+	}
+		
+	for (int i = 0; i < 4; i++) {
+		
+		func(lev + 1, mul*arr[lev][i]);
+	}
+	
+}
+
+int main()
+{
+	
+	func(0,1);
+	cout << Max << endl;
+	cout << Min << endl;
+}
+
+ctrl+rr rename
+
+choose string
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+char path[10];
+char name[10] = "BTSGOOD";
+int len;
+void func(int lev)
+{
+	if (lev >= 3) { 
+		cout << path << endl;
+		return;
+	}
+	for (int i = 0; i < len; i++) {
+		path[lev] = name[i];
+		func(lev + 1);
+		path[lev] = 0;
+	}
+}
+
+int main()
+{
+	len = strlen(name);
+	func(0);
+	
+}
+
+주사위 가지치기
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+char path[10];
+int used[10];		//dat
+int len;
+void func(int lev)
+{
+	if (lev >= 3) { 
+		cout << path << endl;
+		return;
+	}
+
+	for (int i = 1; i <= 6; i++) {
+		path[lev] = '0' + i;
+		if (used[i] == 1)
+			continue;
+
+		used[i] = 1;
+		func(lev + 1);
+
+		path[lev] = 0;
+		used[i] = 0;
+	}
+}
+
+
+int main()
+{
+	
+	func(0);
+	
+}
+
+중복순열
+순열	used
+조합
+#include <iostream>
+using namespace std;
+char path[10];
+char card[5] = { 'A','G','K','R','P' };
+int used[10];
+
+void func(int lev)
+{
+	if (lev == 3) {
+		cout << path<<endl;
+		return;
+	}
+
+	for (int i = 0; i < 5; i++) {
+		
+		
+		if (used[i] == 1)
+			continue;
+		used[i] = 1;
+		path[lev] = card[i];
+
+		func(lev + 1);
+		path[lev] = 0;
+		used[i] = 0;
+	}
+}
+int main()
+{
+	func(0);
+}
+
+**순열조합used
+
+조합
+#include <iostream>
+using namespace std;
+char path[10];
+int used[10];
+
+int func(int lev,int start)
+{
+	if (lev == 2) {
+		cout << path << endl;
+		return lev;
+	}
+
+	for (int i = start; i <= 6; i++) {
+		path[lev] = '0' + i;
+		func(lev + 1,i);
+		path[lev] = 0;
+	}
+}
+int main()
+{
+	func(0,1);
+}
