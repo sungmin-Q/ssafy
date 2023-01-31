@@ -1,0 +1,46 @@
+//가중치 그래프
+//갈 수 있으면 1
+//갈 수 없으면 0
+//가중치 그래프 간선의 값이 1아닌 값
+
+//노드 4
+//간선 6
+
+#include<iostream>
+using namespace std;
+
+int visit[4] = { 0 };
+//인접행렬
+// 인접행렬 map[노드 개수][노드개수]
+int sum;
+
+int map[4][4] = {
+	0,7,20,8,
+	0,0,5,0,
+	15,0,0,0,
+	0,0,6,0,
+};
+
+void dfs(int now, int sum)
+{
+	if (now == 2)		// 2번 노드에 도착시 sum출력
+	{
+		cout << sum << endl;
+		return;
+	}
+	for (int i = 0; i < 4; i++) {
+		if (map[now][i] == 1)	continue;
+		if (visit[i] == 1) continue;
+		visit[i] = 1;
+		dfs(i, sum + map[now][i]);
+		visit[i] = 0;
+	}
+}
+
+int main()
+{
+	visit[0] = 1; //시작노드는 방문 체크하고 감
+	dfs(0,sum);			//시작노드번호,합
+
+	return 0;
+}
