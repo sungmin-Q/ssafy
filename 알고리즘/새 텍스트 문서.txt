@@ -1,0 +1,437 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+//인접행렬 초기화
+/*
+int arr[5][5] = {
+	0,0,0,0,1,
+	0,0,1,1,0,
+	1,0,1,0,0,
+	0,0,0,0,0,
+};
+int value[5] = { 3,5,1,5,7 };
+*/
+
+/*
+int arr[5][5] = {
+	0,1,0,0,0,
+	0,0,1,1,0,
+	0,0,0,0,0,
+	0,0,1,1,0,
+	0,0,1,0,0
+};
+int value[5] = { 9,8,21,15,4 };
+int main()
+{
+
+	int sum = 0, Max = 0,Maxidx=0;
+	for (int i = 0; i < 5; i++) {
+		sum = 0;
+		for (int j = 0; j < 5; j++) {
+			sum += arr[j][i];
+		}
+		if (Max < sum) {
+				Max = sum;
+				Maxidx = i;
+		}
+	}
+	cout << value[Maxidx];
+}
+*/
+
+/*
+//연결노드의 출력
+int arr[4][4] = {
+	0,1,0,1,
+	0,0,0,1,
+	1,0,0,1,
+	0,0,0,0
+};
+int value[4] = { 15,49,-77,88 };
+
+int main()
+{
+	int n;
+	cin >> n;
+	for (int i = 0; i < 4; i++) {
+		if (arr[n][i] == 1) {
+			cout << i <<' ';
+			cout << value[i]<<endl;
+		}
+	}
+	return 0;
+}
+*/
+
+/*
+트리
+int arr[6][6] = {
+	0,1,1,0,0,0,
+	0,0,0,1,1,0,
+	0,0,0,0,0,1,
+	0,0,0,0,0,0,
+	0,0,0,0,0,0,
+	0,0,0,0,0,0,
+};
+char value[6] = { 'A','B','T','R','B','G'};
+
+void run(int now)
+{
+	for (int i = 0; i < 6; i++) {
+		if (arr[now][i] == 0) continue;
+		run(i);
+	}
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+	for (int i = 0; i < 6; i++) {
+		if (arr[i][n] == 0) continue;
+			cout << i;
+	}
+}
+*/
+
+/*
+int arr[4][4] = {
+	0,0,1,0,
+	1,0,1,0,
+	0,1,1,1,
+	0,0,1,1
+};
+char value[4] = { 'A','B','C','D' };
+
+
+int main()
+{
+	int n;
+	cin >> n;
+
+	// 들어온 값 arr[n][j]
+	for (int j = 0; j < 4; j++) {
+		if (arr[n][j] == 0) continue;
+		cout << value[n] << "일대 나간 값" << value[j] << endl;
+	}
+
+	// 나간 값 arr[i][n]
+	for (int i = 0; i < 4; i++) {
+		if (arr[i][n] == 0) continue;
+		cout << value[n] << "일때 들어온 값" << value[i]<<endl;
+	}	
+}
+*/
+
+/*int arr[6][6] = {
+	0,1,1,1,
+	0,0,1,0,
+	1,0,1,0,
+	0,0,0,0
+};
+
+int via[4] = { 0 };
+int cnt = 0;
+char path[10];
+
+void run(int now)
+{
+	if (now == 2) {
+		cout << path << ' '<<endl;
+		cnt++;
+		return;
+	}
+
+	cout << now;
+	for (int j = 0; j < 4; j++) {
+		if (arr[now][j] == 0) continue;
+		if (via[j] == 1) continue;
+
+		path[now] = 'A'+j;
+		via[j] = 1;
+
+		run(j);
+
+		path[now] = 0;
+		via[j] = 0;
+		// via[j] 초기화x 연결된 노드를 1회씩만 모두 탐색 ex) 탐색의 가능확인
+		// via[j] 모든 노드를 탐색 ex) 탐색한 총 가지수
+	}
+}
+
+int main()
+{
+	via[0] = 1;
+	run(0);
+	cout << cnt;
+}*/
+
+// ex)0번 부터 3까지 갈수 있는 길의 개수
+// ex)0부터 3까지 갈 수있는지 여부
+
+//가중치 최소값 구하기
+/*
+int arr[4][4] = {
+	0,50,60,300,
+	0,0,7,0,
+	30,0,0,10,
+	0,0,0,0
+};
+int via[4];
+int Min = 21e8;
+
+void run(int now, int sum)
+{
+	if (now == 3) {
+		cout << sum << ' ';
+		if (Min > sum) Min = sum;
+		return;
+	}
+	for (int to = 0; to < 4; to++) {
+		if (arr[now][to] == 0) continue;
+		if (via[to] == 1) continue;
+		via[to] = 1;
+		run(to, sum + arr[now][to]);
+		via[to] = 0;
+		
+	}
+}
+int main() 
+{
+	via[0] = 1;
+	run(0, 0);
+	cout << "최소";
+	cout << Min;
+
+	return 0;
+}
+*/
+
+/*
+int arr[10][10] = {
+	0
+};
+int via[10];
+int n;
+
+void func(int now)
+{
+	cout << now << ' ';
+	for (int to = 0; to <= n; to++) {
+		if (arr[now][to] == 0) continue;
+		if (via[to] == 1) continue;
+		
+
+		func(to);
+		via[to] = 0;
+	}
+}
+
+int main()
+{
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> arr[i][j];
+		}
+	}
+	int flag = 999;
+	func(0);
+	return 0;
+}
+*/
+
+/*
+vector<vector<int>> arr;
+//vector<vector<int>> arr(3); 3*0행렬
+vector<vector<int>> vrr(4);
+int main()
+{
+	vrr[0] = { 1,2,3 };
+	vrr[1] = { 2 };
+	vrr[2] = { 2 };
+	for (int i = 0; i < arr.size(); i++) {
+		for (int j = 0; j < arr[i].size(); j++) {
+			cout << arr[i][j];
+		}
+		cout << endl;
+	}
+	return;
+}
+*/
+
+/*
+vector<vector<int>> arr(3);
+//2차원 벡터의 초기화 과정
+// n으로 임의의 크기의 배열생성 가능
+//vector<int>arr[3]
+// n으로 임의의 크기의 배열생성 불가
+int main()
+{
+	//arr[0] = { 1,2,3 };
+
+	arr = {
+		{1,2,3},
+		{2,3,4},
+		{4,5,6}
+	};
+	for (int i = 0; i < arr.size(); i++) {
+		for (int j = 0; j < arr[i].size(); j++) {
+			cout << arr[i][j];
+		}
+		cout << endl;
+	}
+		
+	return 0;
+}
+*/
+
+/*
+int main()
+{
+	vector<vector<int>> arr(5);
+	arr[0] = { 3 };
+	arr[1] = { 2,0 };
+	arr[2] = { };
+	arr[3] = { 2,4 };
+	arr[4] = { 2 };
+
+	for (int i = 0; i < arr.size(); i++) {
+		for (int j = 0; j < arr[i].size(); j++) {
+			cout << arr[i][j];
+		}
+		cout << endl;
+	}
+
+	int n=3;
+	for (int i = 0; i < arr[n].size(); i++) {
+		cout << arr[n][i];
+	}
+
+}
+*/
+
+/*
+vector<vector<int>> arr(5);
+
+void run(int now) 
+{
+	for (int i = 0; i < arr[now].size(); i++) {
+		int next = arr[now][i];
+		run(next);
+		//다음갈곳을 출력
+	}
+}
+
+int main()
+{
+	run(0);
+}
+*/
+
+//dfs비용찾기
+//dfs
+//인접행렬/인접리스트
+//인접행렬 dfs,used,가중치 dfs
+//인접리스트dfs
+
+/*
+int arr[100][100];
+int n;
+int lev;
+char path[10];
+int via[10];
+
+void input()
+{
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> arr[i][j];
+		}
+	}
+}
+
+void run(int now)
+{
+	if (lev == 2) {
+		for (int i = 0; i < 3; i++) {
+			cout << path[i] << ' ';
+		}
+		cout << endl;
+	}
+
+	for (int to = 0; to < n; to++) {
+		if (arr[now][to] == 0) continue;
+		if (via[to] == 1) continue;
+
+		lev++;
+		path[lev] = '0' + to;
+		via[to] = 1;
+
+		run(to);
+
+		lev--;
+		path[lev] = 0;
+		via[to] = 0;
+
+	}
+}
+
+
+int main()
+{
+	cin >> n;
+	input();
+	path[0] = '0';
+	run(0);
+}
+*/
+
+// now는 목적지의 value
+
+/*
+int n;
+char arr[9] = "RKFCBICM";
+int via[10] = { 0 };
+char path[10];
+int lev = 0;
+
+void input()
+{
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> arr[i][j];
+		}
+	}
+}
+
+
+void func(int now)
+{
+	if (lev == 2) {
+		cout << path << endl;
+		return;
+	}
+	for (int to = 0; to < n; to++) {
+		if (arr[now] == 0) continue;
+		if (via[to] == 1) continue;
+		lev++;
+		via[to] = 1;
+		path[lev] = arr[to%8];
+
+		func(to);
+
+		lev--;
+		via[to] = 0;
+		path[lev] = 0;
+	}
+}
+
+int main()
+{
+	input();
+	func(0);
+	
+}
+*/
