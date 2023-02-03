@@ -1,0 +1,489 @@
+void bfs(int y, int x) {
+	//#1. quque
+	queue<node>q;
+	q.push({ y,x }); //시작 노드
+	//#2. visit
+	int visit[5][5] = { 0 };
+	visit[y][x] = 1;
+
+	//#3.방향배열 준비
+	int ydir[] = { -1,1,0,0 };
+	int xdir[] = { 0,0,-1,1 };
+	//#4. bfs(flood fill)
+	while (!q.empty()) {
+		node now = q.front();
+		q.pop();
+
+		//now갈수있는 노드를 확인
+		//갈수 있는 방향 문제제공
+		for (int i = 0; i < 4; i++) {
+			int ny = now.y + ydir[i];
+			int nx = now.x + xdir[i];
+
+			//범위 체크#1
+			if (ny < 0 || nx < 0 || ny >= 5 || nx <= 5)
+				continue;
+			//방문 or 방문예약
+			if (visit[ny][nx] == 1)
+				continue;
+
+			//ny,nx 가기 가능(확정)
+			visit[ny][nx]=1;
+			q.push({ ny,nx });
+		}
+	}
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			cout << visit[i][j] << ' ';
+		}
+		cout << endl;
+	}
+	//최단 경로: 노드까지의 최단 시간,경로
+}
+
+기본형
+//플러드필
+//flood fil
+//ex) 그림판의 채우기
+//bfs
+//N차원 공간에서의 bfs
+//#1.  queue 준비
+//	 via준비
+//	 +좌표기반으로 생성 
+//#2. bfs의 동작
+//	맨 앞 노드의 추출
+//	다음 노드를 확인
+//	queue에 넣기
+//	+방향벡터 기반으로 이동
+
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct node {
+	int y;
+	int x;
+};
+
+int y, x;
+
+void bfs(int y, int x) {
+	queue<node> q;
+	q.push({ y,x });
+
+	int visit[5][5] = { 0 };
+	visit[y][x] = 1;
+
+	int ydir[] = { -1,1,0,0 };
+	int xdir[] = { 0,0,-1,1 };
+
+	while (!q.empty()) {
+		node now = q.front();
+		q.pop();
+
+		for (int i = 0; i < 4; i++) {
+			int ny = now.y + ydir[i];
+			int nx = now.x + xdir[i];
+			if (ny < 0 || nx < 0 || nx >= 5 || ny >= 5)
+				continue;
+			if (visit[ny][nx] != 0)
+				continue;
+			//다음 좌표까지의 경로 = 현 위치까지의 경로에서 +1만큼 추가된 경로
+			visit[ny][nx] = visit[now.y][now.x]+1;
+			q.push({ ny,nx });
+		}
+	}
+	
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			cout << visit[i][j] << ' ';
+		}
+		cout<<endl;
+	}
+}
+
+
+int main()
+{
+
+	cin >> y >> x;
+	// bfs시작노드 대신 시작 좌표를 넣어야함
+	// 격자무늬 -> 
+	//
+	bfs(y, x);
+}
+
+__###
+___#_
+#_##_
+__#__
+#____
+0 0
+1 2
+1 4
+
+기본게임
+//플러드필
+//flood fil
+//ex) 그림판의 채우기
+//bfs
+//N차원 공간에서의 bfs
+//#1.  queue 준비
+//	 via준비
+//	 +좌표기반으로 생성 
+//#2. bfs의 동작
+//	맨 앞 노드의 추출
+//	다음 노드를 확인
+//	queue에 넣기
+//	+방향벡터 기반으로 이동
+
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct node {
+	int y;
+	int x;
+};
+string Map[5];
+int y, x;
+int by, bx;
+void bfs(int y, int x) {
+	queue<node> q;
+	q.push({ y,x });
+
+	int visit[5][5] = { 0 };
+	visit[y][x] = 1;
+
+	int ydir[] = { -1,1,0,0 };
+	int xdir[] = { 0,0,-1,1 };
+
+	while (!q.empty()) {
+		node now = q.front();
+		q.pop();
+
+		for (int i = 0; i < 4; i++) {
+			int ny = now.y + ydir[i];
+			int nx = now.x + xdir[i];
+			if (ny < 0 || nx < 0 || nx >= 5 || ny >= 5)
+				continue;
+			if (visit[ny][nx] != 0)
+				continue;
+			// 내가 지금 가려는 곳이 벽일때
+			// 원본 map은 수정하지 않는다
+			if (Map[ny][nx] == '#')
+				continue;
+			//다음 좌표까지의 경로 = 현 위치까지의 경로에서 +1만큼 추가된 경로
+			visit[ny][nx] = visit[now.y][now.x]+1;
+			q.push({ ny,nx });
+		}
+	}
+	
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			cout << visit[i][j] << ' ';
+		}
+		cout<<endl;
+	}
+	cout << visit[by][bx] - 1;
+}
+
+
+int main()
+{
+	for (int i = 0; i < 5; i++) {
+		cin >> Map[i];
+	}
+	cin >> y >> x;
+	// bfs시작노드 대신 시작 좌표를 넣어야함
+	// 격자무늬 -> 게임
+	cin >> by >> bx;
+	bfs(y, x);
+}
+
+무기게임(미완)
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct node {
+	int y;
+	int x;
+};
+string Map[5];
+int y, x;
+int by, bx;
+int my, mx;
+int dist;
+
+void bfs(int y, int x) {
+	queue<node> q;
+	q.push({ y,x });
+
+	int visit[5][5] = { 0 };
+	visit[y][x] = 1;
+
+	int ydir[] = { -1,1,0,0 };
+	int xdir[] = { 0,0,-1,1 };
+
+	while (!q.empty()) {
+		node now = q.front();
+		q.pop();
+
+		for (int i = 0; i < 4; i++) {
+			int ny = now.y + ydir[i];
+			int nx = now.x + xdir[i];
+			if (ny < 0 || nx < 0 || nx >= 5 || ny >= 5)
+				continue;
+			if (visit[ny][nx] != 0)
+				continue;
+			// 내가 지금 가려는 곳이 벽일때
+			// 원본 map은 수정하지 않는다
+			if (Map[ny][nx] == '#')
+				continue;
+			//다음 좌표까지의 경로 = 현 위치까지의 경로에서 +1만큼 추가된 경로
+			visit[ny][nx] = visit[now.y][now.x]+1;
+			q.push({ ny,nx });
+		}
+	}
+	
+	//무기->캐릭터
+	dist += visit[y][x]-1;
+	//무기->보스
+	dist += visit[by][bx]-1;
+
+	//역으로 목저지에서 bfs시행하여 다양한 경로의 최단거리를 구할수 있다
+}
+
+
+int main()
+{
+	for (int i = 0; i < 5; i++) {
+		cin >> Map[i];
+	}
+	cin >> y >> x;
+	// bfs시작노드 대신 시작 좌표를 넣어야함
+	// 격자무늬 -> 게임
+	// 무기에서 프러드필
+	cin >> by >> bx;
+	cin >> my >> mx;
+
+
+	//bfs(y, x,my,mx);
+	//bfs(my, mx, by, bx);
+
+	bfs(mx, my);
+}
+
+
+감염(미완)
+//플러드필
+//flood fil
+//ex) 그림판의 채우기
+//bfs
+//N차원 공간에서의 bfs
+//#1.  queue 준비
+//	 via준비
+//	 +좌표기반으로 생성 
+//#2. bfs의 동작
+//	맨 앞 노드의 추출
+//	다음 노드를 확인
+//	queue에 넣기
+//	+방향벡터 기반으로 이동
+
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct node {
+	int y;
+	int x;
+};
+string Map[5];
+int sy, sx;
+int day = 1;
+
+void bfs(int y, int x) {
+	queue<node> q;
+	q.push({ y,x });
+
+	int visit[5][5] = { 0 };
+	visit[y][x] = 1;
+
+	int ydir[] = { -1,1,0,0 };
+	int xdir[] = { 0,0,-1,1 };
+
+	while (!q.empty()) {
+		day++;
+		// 지금 큐에서 오늘 날짜에 감염될 노드만큼 추출해 기록
+		int cursize = q.size();
+
+
+		node now = q.front();
+		q.pop();
+
+		for (int i = 0; i < cursize; i++) {
+			int ny = now.y + ydir[i];
+			int nx = now.x + xdir[i];
+			if (ny < 0 || nx < 0 || nx >= 5 || ny >= 5)
+				continue;
+			if (visit[ny][nx] != 0)
+				continue;
+			// 내가 지금 가려는 곳이 벽일때
+			// 원본 map은 수정하지 않는다
+			//다음 좌표까지의 경로 = 현 위치까지의 경로에서 +1만큼 추가된 경로
+			visit[ny][nx] = 1;
+			q.push({ ny,nx });
+		}
+
+		cout << "day#" << day << endl;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				cout << visit[i][j];
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+}
+
+int main()
+{
+	bfs(sy,sx);
+}
+
+//플러드필
+//flood fil
+//ex) 그림판의 채우기
+//bfs
+//N차원 공간에서의 bfs
+//#1.  queue 준비
+//	 via준비
+//	 +좌표기반으로 생성 
+//#2. bfs의 동작
+//	맨 앞 노드의 추출
+//	다음 노드를 확인
+//	queue에 넣기
+//	+방향벡터 기반으로 이동
+
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct node {
+	int y;
+	int x;
+};
+string Map[8] = {
+	"###____",
+	"##_____",
+	"#______",
+	"______#",
+	"______#",
+	"______#",
+	"______#",
+	"______#",
+
+}
+int sy, sx;
+int day = 1;
+
+
+void bfs(int y, int x) {
+	queue<node> q;
+	q.push({ y,x });
+
+	int visit[8][8] = { 0 };
+	visit[y][x] = 1;
+
+	int ydir[] = { -1,1,0,0 };
+	int xdir[] = { 0,0,-1,1 };
+
+	while (!q.empty()) {
+		day++;
+		// 지금 큐에서 오늘 날짜에 감염될 노드만큼 추출해 기록
+		//찾은 섬은 다시 찾으면 안됨
+		int cursize = q.size();
+
+
+		node now = q.front();
+		q.pop();
+
+		for (int i = 0; i < cursize; i++) {
+			int ny = now.y + ydir[i];
+			int nx = now.x + xdir[i];
+			if (ny < 0 || nx < 0 || nx >= 8 || ny >= 8)
+				continue;
+			if (visit[ny][nx] != 0)
+				continue;
+			//연결된 섬이라면 계속
+			if(visit[ny][nx])
+			// 내가 지금 가려는 곳이 벽일때
+			// 원본 map은 수정하지 않는다
+			//다음 좌표까지의 경로 = 현 위치까지의 경로에서 +1만큼 추가된 경로
+			visit[ny][nx] = 1;
+			q.push({ ny,nx });
+		}
+
+		cout << "day#" << day << endl;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				cout << visit[i][j];
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+}
+
+int main()
+{
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; ++) {
+			if (Map[i][j] == '#') {
+				bfs(i, j);
+				// 한번의 플러드필 종료 -> 섬을 찾음
+			}
+		}
+	}
+	cout<<
+}
+
+
+
+달팽이 숫자
+int main()
+{
+	//**y좌표의 위,아래
+	int di[4] = { 0,1,0,-1 };
+	int dj[4] = { 1,0,-1,0 };
+
+	int arr[3][3] = { 0 };
+	int j = 0, i = 0;
+	int dir = 0;
+	int num = 1;
+	arr[i][j] = num++;
+	//for(0부터 8까지)
+	while (num <= 9) {
+		int ni = i + di[dir];
+		int nj = j + dj[dir];
+
+		//판정한뒤 할당
+		if ((ni >= 0 && ni < 3) && (nj >= 0 && nj < 3) && arr[ni][nj] == 0) {
+			//ni,nj의 저장 필요
+			i = ni;
+			j = nj;
+			arr[i][j] = num++;
+		}
+		else
+			//방향배열의 이동
+			dir = (dir + 1) % 4;
+	}
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			cout << arr[i][j] << ' ';
+		}
+		cout << endl;
+	}
+}
