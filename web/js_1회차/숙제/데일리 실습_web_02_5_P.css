@@ -40,7 +40,14 @@ h1{
 }
 /* 5. section 태그는 width 490px height 300px, 
    aside 태그는 width 280px height 300px로 설정합니다.*/
-
+section{
+  width: 490px;
+  height: 300px;
+}
+aside{
+  width: 280px;
+  height: 300px;
+}
 /* 6. 모든 semantic 태그의 border 두께를 1px, 실선, 검은색으로 설정합니다. */
 
 /* 7. 모든 semantic 태그의 border 모서리 반경을 4px로 설정합니다. */
