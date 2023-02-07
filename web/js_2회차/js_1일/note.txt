@@ -1,0 +1,40 @@
+함수선언식
+test()
+function test{
+  console.log("hi");
+}
+console.log(hello)
+var hello = "test"
+?함수의 호이스팅
+
+함수표현식
+go()
+var go=function(){
+  console.log("go");
+}
+
+함수의 호이스팅
+변수의 호이스팅
+
+함수표현식 변수에 집어넣음
+var a=function(){}
+변수의 호이스팅을 받음
+
+화살표함수
+함수표현식과 유사
+
+js prototype기반
+멀티패러다임
+원시: stack
+객체(참조형): heap
+
+객체: KEY와 VALUE로 이뤄진 property의 모음
+
+js숙제
+1795
+2_1
+백틱으로 변경
+arrow function변경
+
+1921
+기존의 todo리스트 복사

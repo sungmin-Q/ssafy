@@ -10,12 +10,15 @@
   <button>click</button>
   <script>
     const btn=document.querySelector("button");
+    //연결 안해도 됨?
     btn.addEventListener("click",function(){
       alert("안녕");
         //안녕을 생성해 추가
       const div=document.createElement('div');
       div.textContent="hi";
+      //document text 추가하는 과정
       document.querySelector("body").append(div)
+      //
     })
   </script>
 </body>

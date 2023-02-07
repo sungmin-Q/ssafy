@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container{
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+    }
+    .container>*{
+      margin: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="arr_input">
+    <input type="text" id="value_input">
+    <button class="btn">Button</button>
+  </div>
+  <div class="result"></div>
+  <script>
+    const arr=document.querySelector("#arr_input");
+    const val=document.querySelector("#value_input");
+    const btn=document.querySelector(".btn");
+    const result=document.querySelector(".result");
+    btn.addEventListener('click',function(){
+      const array=arr.value.split(",");
+      console.log(array);
+      const isImport=array.some(ele=>ele===val.value);
+      if(isImport)
+        result.textContent="포함";
+      else
+        result.textContent="미포함";
+    })
+  </script>
+  <!-- <script>
+
+    const first=document.querySelector(".First").textContent;
+    const Second=document.querySelectorAll(".Second").textContent;
+    const btn=document.querySelector(".Btn");
+    function c(){
+      console.log("click");
+        if(element==first)
+          second.forEach(num=>{
+            if(num==first)
+            console.log("포함");
+          })
+    }
+    btn.addEventListener("click",c) 
+        //이벤트 리스너 콜백함수로 사용
+    //쿼리셀렉터 연결
+    //배열로 생성-->
+  </script>
+  <script>
+
+  </script>
+</body>
+</html>

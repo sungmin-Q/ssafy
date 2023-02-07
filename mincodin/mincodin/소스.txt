@@ -1,0 +1,194 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+string str;
+
+int isValid(string tmp)
+{
+    int idx = tmp.find("@",0);
+    if (idx == -1)
+        return 0;
+    int len = tmp.length();
+    int flag = 0;
+
+    for (int i = idx; i < len; i++) {
+        if (tmp[i] == '.') {
+            flag = 1;
+        }
+    }
+
+    for (int i = 0; i < len; i++) {
+        if (tmp[i] == '.') {
+            if (i < idx)
+                return 0;
+        }
+    }
+
+    if (flag)
+        return 1;
+    else
+        return 0;
+}
+int main()
+{
+    cin >> str;
+    string tmp;
+    str.insert(0, "|");
+    str += '|';
+
+    int a = 0, b = 0, size = 0;
+    while (1) {
+        a = str.find("|", a);
+        if (a == -1) break;
+        b = str.find("|", a + 1);
+        size = b - a - 1;
+        tmp = str.substr(a + 1, size);
+        cout << tmp << endl;
+        a = b;
+        if (isValid(tmp)) {
+            데이터의 저장
+        }
+    }
+
+}
+
+
+
+
+#include<iostream>
+#include<vector>
+using namespace std;
+int nodecnt, edgecnt;
+int adj[6][6] = { 0 };
+int used[10] = { 0 };
+//dfs인접행렬
+/*
+void dfs(int now)
+{
+	// 2. 기저조건 (option) ***
+	//지금 도착
+	for (int to = 1; to <= nodecnt; to++) {
+	
+	//가지치기와 유사
+	if (adj[now][to] == 0) continue;
+	
+	cout << now << "에서" << to << "로 갑니다";
+	//1. 재귀의 기본
+	dfs(to);
+	}
+}
+*/
+
+void dfs(int now)
+{
+	// 2.기저조건
+	for (int i = 0; i < v[now].size(); i++) {
+		//now -> to찾기
+		int to = v[now][i];
+		//가지치기
+		if (used[to] == 1) continue;
+		//3.기록및 처리
+		cout << now << "에서" << to << "로 갑니다";
+		used[to] = 1;
+		dfs(to);
+		used[to] = 0;
+		
+	}
+}
+int main()
+{
+	//1. 인접행렬
+	/*
+	int nodecnt, edgecnt;
+	cin >> nodecnt >> edgecnt;
+	
+	int adj[6][6] = {0};
+	for (int i = 0; i < edgecnt; i++)
+	{
+		int from, to;
+		cin >> from >> to;
+		adj[from][to] = 1;
+	}
+	int de = 1;
+
+	int node = 1;
+	for (int to = 1; to <= 5; to++) {
+		if (adj[node][to] == 0)
+			cout << to << ' ';
+	}
+	*/
+
+	//2.인접리스트
+	
+	/*
+	// vector<data의 형태>;
+	// v[from]: from에서 갈 수 있는 to들을 저장한 vector
+	int nodecnt, edgecnt;
+	cin >> nodecnt >> edgecnt;
+
+	vector<int> v[6];
+	for (int i = 0; i< edgecnt; i++) {
+		int from, to;
+		cin >> from >> to;
+		//vector 맨 뒤에 공간을 추가해 value를 저장
+		v[from].push_back(to);
+	}
+
+	int node = 1;
+	for (int i = 0; i < v[node].size(); i++) {
+		int to = v[node][i];
+		cout << to;
+	}
+
+	int de = 1;
+	*/
+
+	
+	cin >> nodecnt >> edgecnt;
+
+	int adj[6][6] = { 0 };
+	for (int i = 0; i < edgecnt; i++)
+	{
+		int from, to;
+		cin >> from >> to;
+		adj[from][to] = 1;
+	}
+	int de = 1;
+
+	int node = 1;
+	for (int to = 1; to <= 5; to++) {
+		if (adj[node][to] == 0)
+			cout << to << ' ';
+	}
+	dfs(0);
+
+}
+
+
+배열의 복사이동
+#include<iostream>
+using namespace std;
+int main()
+{
+	int idx = 1;
+	int arr[3][3] = { 1,0,0,
+					0,1,0,
+					0,0,1
+	};
+	//2차원 배열의 복사이동
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (arr[i][j] == 1) {
+				arr[i][j] = 0;
+				arr[idx][j] = 1;
+			}
+		}
+	}
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			cout << arr[i][j];
+		}
+		cout << endl;
+	}
+}
