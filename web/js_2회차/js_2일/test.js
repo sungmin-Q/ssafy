@@ -112,3 +112,14 @@ tmp=tmp.map((event,price)=>{
 })
 
 console.log(tmp);
+
+
+const name='tom';
+console.log(`Hi,my name is ${name}`);
+
+const add=(a,b)=>{return a+b};
+
+const tom={
+  name:'tom',
+  const intorduce=()=>{console.log(`hi my name is ${this.name}`)}
+}

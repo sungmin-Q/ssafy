@@ -1,0 +1,57 @@
+js: 동적인 웹
+js동작시키기 위해 웹브라우저,node js를 필요로함(runtime실행기)
+ECMA script: js위해 존재하는 규정
+=== /== 비교
+var/let/const 호이스팅
+호이스팅=>세 개 다 발생하나
+let,const는 접근이 불가능
+함수표현식(모두 무명함수)
+const samplefunc = function(){
+}
+const samplefun = ()=>{
+}
+const newnames=names.map(()=>{})
+함수 호이스팅 아닌 변수 호이스팅 동작
+function abc(){
+	return "abc";
+}
+function abc(){
+	return "abc";
+}
+const 일부는 수정가능
+const arr=[1,2,3]
+arr[2]=1
+dom접근시 document.queryselector(".title")
+getElementByid() //id만 사용가능
+getElementByClassName
+
+인라인 이벤트 방식
+const btn=document.queryselector("button")
+btn.addEvetnListner("click",(()=>console.log('hi)))
+
+<button onclick="sayhi()">
+const sayhi=()=>console.log("hi")
+
+잘 기억
+classList - add toggle ...
+keyup,keydown
+
+콜백함수 - 함수안에 들어가는 함수 (이벤트 받을때 주로 사용)
+slice,splic연습
+pasing-add
+forEach,map,filter,reduce
+forEach - 원본 데이터를 수정하지 않음
+indexof,concat,push,split...
+concat - 문자열 붙일때,배열도 분이가 가능
+버블링
+캡쳐
+위임
+http request method
+각각의 역할
+	get: 정보를 가져 올때
+	post : 새 정보를 기입할때 (crud:creat)
+	put : 전체의 정보 수정
+	patch: 하나만 수정
+	delete
+min.js 전송을 위한 파일 bootstram설치시 데이터 낭비 맞기위함
+json서버와 클라간 데이터 통신 교환 표준
