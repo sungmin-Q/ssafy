@@ -127,7 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="mincodin.cpp" />
+    <ClCompile Include="소스.cpp" />
+    <ClCompile Include="주사위.txt" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="소스.txt" />

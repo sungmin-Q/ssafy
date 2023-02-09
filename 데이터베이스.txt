@@ -1,0 +1,62 @@
+관계형 데이터베이스
+구조가 명확할때
+게시글 댓글(오는 형식일정)
+
+압축 world.sql -> workbench에 넣고
+번개
+서비스 -> 시작
+mysql -u root -p
+password
+
+SELECT * FROM OrderDetails where ProductID>14;
+SELECT CustomerName,City FROM Customers where CustomerID>10 and CustomerID<=50;
+비교연산 '='으로 처리
+SELECT * FROM minco.honey;
+
+# 모든 필드의 출력,3,5 레코드
+SELECT *FROM minco.honey where num>=2 and num<=5;
+# name,age출력,조건 맞춤
+select name,age from minco.honey;
+# 나이가 20인 경우 출력
+select *from minco.honey where age>20;
+# num짝수면서 age는 1
+select name from minco.honey where num%2=0 and age%2=1;
+
+-- 조건 SELECT 필드명 FROM TABLE WHERE
+select name from minco.honey;
+-- select name as '이름' from#minco.honey;
+select name '이름' from minco.honey;
+
+# 정렬 select * from table order by 필드명
+# 기본 오름차순
+# 오름차순 ASC
+# 내림차순 desc
+select *from minco.honet order by age asc;
+
+-- limit 개수 제한
+-- 페이지 나타낼때 10개 제한해 1~10 11~20
+-- 
+-- limit 건너뛸개수, 건너뛸 개수
+select *from minco.honey limit 3,3;
+
+mysql: https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_columns
+SELECT Address As "주소",city AS "도시",PostalCode "우편번호" FROM [Customers]order by PostalCode asc;
+
+crud
+
+create
+cteate table
+create row/user
+
+select
+minco 스키마의 honey
+
+업데이트,딜리트는 where로 범위 잡아줌
+
+start: mysql -u minco -p
+show: show databases;
+changne:use world
+show tables
+SELECT *FROM city limit 100;
+
+가상의 테이블 json으로 만들기

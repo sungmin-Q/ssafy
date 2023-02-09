@@ -1,0 +1,56 @@
+#include<iostream>
+using namespace std;
+
+char path[10];
+void permu(int lev)
+{
+	if (lev == 3){
+		cout << path << endl;
+		return;
+	}
+	for (int brn = 1; brn <= 6; brn++) {
+		path[lev] = '0' + brn;
+		permu(lev+1);
+		path[lev] = 0;
+	}
+}
+
+int via[10];
+void du_permu(int lev)
+{
+	if(lev==3){
+		cout << path << endl;
+		return;
+	}
+	for (int brn = 1; brn <= 6; brn++) {
+		if (via[brn] == 1) continue;
+		via[brn] = 1;
+		path[lev] = '0' + brn;
+		du_permu(lev + 1);
+		via[brn] = 0;
+		path[lev] = 0;
+	}
+}
+
+void func(int lev)
+{
+	if (lev == 3&& path[lev - 1]==path[lev]) {
+		cout << path << endl;
+		return;
+	}
+	else if (lev == 3) {
+		return;
+	}
+	for (int brn = 1; brn <= 6; brn++) {
+		path[lev]= '0' + brn;
+		func(lev + 1);
+		path[lev] = 0;
+	}
+}
+
+int main()
+{
+	//permu(0);
+	//du_permu(0);
+	func(0);
+}
