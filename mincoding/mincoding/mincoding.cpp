@@ -1,79 +1,69 @@
-﻿#include<iostream>
+﻿#include <iostream>
+
 using namespace std;
 
-char path[10];
+// 문제. 
+// 0번 노드에서 2번 노드로 가는데 다양한 길이 있다.
+// 그 다양한 길들은 각각의 통행료가 (=가중치)있는데
+// 0번에서 2번 노드로 가는데에 발생할 수 있는 통행료의 합들을 출력하라.
 
-int mul(int a, int b)
+// 추가적으로 해보면 좋은 것
+// 1단계 : 그래프 가중치값들을 바꿔보기
+// 2단계 : 최종적으로 MAX 값 , MIN 값만을 출력하는 형태로 만들어보기
+// 3단계 : 노드 개수, 간선 개수, 가중치 값
+//         시작지점, 도착지점 등을 직접 입력 받는 형태로 만들어보기
+
+int sum = 0; // 총합
+int visited[4] = { 0, }; // 방문배열
+int maxval = -21e8, minval = 21e8;
+int node;
+int arr[100][100] =
 {
-	return a * b;
-}
-int add(int a, int b)
+}; // 인접행렬 map[노드개수][노드개수] , 하드코딩
+int START, END;
+
+void input()
 {
-	return a + b;
+    for (int i = 0; i < node; i++) {
+        for (int j = 0; j < node; j++) {
+            cin >> arr[i][j];
+        }
+    }
 }
-int sub(int a, int b)
+
+void dfs(int now, int sum)
 {
-	return a - b;
-}
 
-int sum, tmp;
-int num[3] = { 22,79,21 };
-int flag = 0;
-void func(int lev)
-{
-	if (lev == 2) {
-		flag = 0;
-		for (int i = 0; i < 2; i++) {
-			if (path[0] == '0'&&flag==0 ) {
-				tmp += mul(num[0], num[1]);
-			}
-			else if (path[1] == '0') {
-				tmp = mul(tmp, num[2]);
-			}
+    if (now == END) // 2번 노드에 도착했다면 
+    {
+        if (maxval < sum) maxval = sum;
+        if (minval > sum) minval = sum;
+        return;
+    }
 
-			if (path[0] == '1' && flag == 0) {
-				tmp += add(num[0], num[1]);
-			}
-			else if (path[1] == '1') {
-				tmp = add(tmp, num[2]);
-			}
 
-			if (path[0] == '2' && flag == 0) {
-				tmp += sub(num[0], num[1]);
-			}
-			else if (path[1] == '2') {
-				tmp = sub(tmp, num[2]);
-			}
-			flag = 1;
-		}
-		
-		return;
-	}
+    for (int i = 0; i < node; i++)
+    {
+        if (arr[now][i] == 0) continue; // 간선이 없다면 컨티뉴
+        if (visited[i] == 1) continue; // 이미 방문한 적이 있다면 컨티뉴
+        visited[i] = 1; // 방문하게 될 노드에 1 체크(이게 없다면 무한 사이클에 빠질 수 있습니다 !)
 
-	for (int brn = 0; brn < 3; brn++) {
-		path[lev] = '0'+brn;
-		func(lev + 1);
-		if (tmp % 101 == 0 && tmp != 0)
-			cout << path << endl;
-		//cout << tmp << endl;
-		tmp = 0;
-		path[lev] = 0;
-	}
-}
+        dfs(i, sum + arr[now][i]); // (다음 탐방노드, 현재 SUM값에서 가중치값 더하기) 
+        // ( now = from , i = to , map[now][i] 란 map[from][to] 의 의미)
+
+        visited[i] = 0; // 방문하고 돌아간다면 0 체크(이게 있어야 모든 경우를 해볼 수 있습니다 !)
+    }
+};
+
 int main()
 {
-	func(0);
-	
-}
+    cin >> node;
+    input();
+    cin >> START >> END;
+    visited[START] = 1; // 시작노드는 방문배열에 1을 체크하고 감
+    dfs(START, sum); // (시작노드번호, sum값)
+    cout << minval << endl;
+    cout << maxval << endl;
 
-//for (int i = 0; i < 3; i++) {
-//	if (path[lev] == 0) {
-//		tmp += mul(a, b);
-//	}
-//	else if (path[lev] == 1) {
-//		tmp += add(a, b);
-//	}
-//	else if (path[lev] == 2) {
-//		tmp += sub(a, b);
-//	}
-//}
+    return 0;
+}

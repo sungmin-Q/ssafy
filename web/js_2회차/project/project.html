@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="project.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- html zone -->
+    <div>
+      <div class="main-container">
+        <!-- time -->
+        <div class="timer-wrapper">
+          <div class="timer"></div>
+          <div class="timer-content">good evening,ssafy</div>
+        </div>
+
+        <!-- input -->
+        <div class="memo-input-wrpper m-3">
+          <input
+            type="text"
+            class="memo-input"
+            placeholder="오늘 할 일을 입력"
+          />
+        </div>
+
+        <!-- output -->
+        <div class="memo-wrapper">
+          <div class="memo-title"></div>
+          <div class="memo"></div>
+        </div>
+
+        <div
+          class="modal"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content bg-transparent border-0">
+              <div class="modal-header border-0">
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">...</div>
+              <div class="modal-footer border-0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- script zone -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./project.js"></script>
+    <!-- 스크립트 위치에 유의 -->
+    <!-- 음성,영상 통신 blob속성 필요 -->
+  </body>
+</html>
+
+<!-- const key=df602d295b4bc21a4f492ce913ae76c1;
+api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key} -->
