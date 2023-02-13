@@ -93,3 +93,311 @@ int main()
 //		tmp += sub(a, b);
 //	}
 //}
+
+
+
+
+
+
+/*
+#include <iostream>
+#include <algorithm>
+#include <queue>
+// min,max포함
+using namespace std;
+
+struct student {
+	string name;
+	int age;
+	int grade;
+};
+/*bool cmp(int left, int right) {
+	if (left > right)	// true상황일때 안 바꿈
+		return true;
+	if(right < left)	// false상황일때 바꿈
+		return false;
+	return false;
+}
+*/
+
+
+/*
+	sort 오름차순 정렬 default
+	left<right
+	pq 큰것 부터 나오는 maxheap
+	left<right
+*/
+bool ssafycmp(student left, student right)
+struct cmp {
+	// pq에서 < 쓰면 maxheap
+	// sort와 동일한 기준이면 반대
+	// 내가 원하는 상황에선 false
+		//pq에서도 마지막은 false
+
+	bool operator() (int left, int right) {
+		if (left > right) return true;
+		if (left < right) return false;
+		return false;
+	}
+};
+
+struct ssafycmp {
+	bool operator() (student left, student right) {
+		// 거꾸로 넣어야함
+		if (left.grade > right.grade) return false;
+		if (left.grade < right.grade) return true;
+		if (left.age > right.age) return false;
+		if (left.age > right.age) return true;
+		if (left.name > right.name) return false;
+		if (left.name < right.name) return true;
+		return false;
+	}
+};
+
+int main()
+{
+	int arr[] = { 1,3,5,4,2 };
+	//오름차순
+	/*
+	sort(arr, arr + 5);
+	for (int i = 0; i < 5; i++)
+		cout << arr[i] << ' ';
+	*/
+
+	//내림차순
+	/*
+	sort(arr, arr + 5, cmp);
+	for (int i = 0; i < 5; i++)
+		cout << arr[i] <<' ';
+	*/
+
+	//우선순위 큐 maxheap: default
+	/*
+	priority_queue <int> pq;
+	//삽입: push()
+	//삭제: pop()
+	//**맨 위(최우선순위): top()
+	//공백: empty() 이외는 유사함
+	for (int i = 0; i < 5; i++)
+		pq.push(arr[i]); //heapify
+
+	while (!pq.empty()) {
+		cout << pq.top() << ' ';
+		pq.pop(); //heapify
+	}
+	*/
+
+	//우선순위 큐 minheap
+	// priority_queue<typename,container,less>
+	// typename: 자료형
+	// container: vector
+	// less: compare cmp아님 -> 함수 구조체를 사용함
+	// 변경하기 위해 구조체 함수를 넣어야함
+	priority_queue <int,vector<int>,cmp> pq;
+	for (int i = 0; i < 5; i++)
+		pq.push(arr[i]); //heapify
+	while (!pq.empty()) {
+		cout << pq.top() << ' ';
+		pq.pop(); //heapify
+	}
+
+	// 사용자 정의 heap
+	priority_queue <student> pq;
+	pq.push({ "kim",3,100 });
+	pq.push({ "kin",3,100 });
+	pq.push({ "kil",3,100 });
+	// 1.점숫순
+	// 2.나이순
+	// 3.이름순
+	while (!pq.empty()) {
+		
+	}
+
+	//sort와 priotyqueue
+	//sort: O(NlogN) 
+	//pq: O(logN)
+
+	//n개의 정수 입력 가장 큰수의 출력
+	//sort 입력 -> 정력 -> arr[n-1] => O(NlogN)
+	//pq 입력 -> 삽입(logN) -> hepify -> pq.top()
+
+	//n개의 query
+	// 2현재 최대값 삭제
+	// 1이면 삽입
+	// 0이면 최대값 출력
+	
+	//sort: Q * NlogN 삽입 추출시 계속
+	//pq: Q * (logN)
+
+	//sort: 1회 정렬로 해결이 가능할때
+	//pq: 계속 새로운 값의 삽입/추출 (변화가 될 때)
+	
+}
+
+
+*/
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main()
+{
+	int lst[] = { 7,1,8,2,9,4 };
+	sort(lst, lst + 6);
+	string str = "dddd[ddd]";
+	// [begin,end) begin포함
+	// end미포함 end-begin개
+	// 파싱 substr도 이와 같은형태
+
+	//벡터의 경우도 동일하게 사용
+	vector<int> vrr= { 7,1,8,2,9,4 };
+	sort(vrr.begin(), vrr.end());
+	for (int i = 0; i < vrr.size(); i++)
+		cout << vrr[i] << ' ';
+
+	//range for 인덱스의 미사용
+	for (int value : vrr) {
+		//value=3;		vrr은 그대로 유지
+		//복사본,메모리의 사용
+		cout << value << ' ';
+	}
+
+	for (int& value : vrr) {
+		cout << value << ' ';
+		//value = 3;
+		//값이 변경됨
+		//메모리 복사비용 없음,내부서 값 변경가능
+	}
+
+	for (const int& value : vrr) {
+		cout << value << ' ';
+		//메모리 복사비용 없음,내부서 값 변경불가
+	}
+	return 0;
+}
+
+	string a = "abcde";
+	string b = "acbde";
+	//a < b연산 true;
+	//cout << (a < b);
+	/*길이순으로 정렬
+	같은 길이끼리는 사전순으로*/
+
+
+// string vector에 입력
+// 비교기의 조건
+// <= 는 사용하지 않기
+// 참인 경우를 먼저 찾기
+//left 가 왼쪽에 올때 true를 return하는 함수
+//order빠른게 왼쪽에 오도록
+
+for (int i = 0; i < n; i++) {
+	for (int j = 0; j <= i; j++) {
+		O((N^2+N)/2)=O(N^2)
+	}
+}
+
+
+//그리디 조건
+//가장 빠르게 끝나는 회의
+/*
+struct Time {
+	int start;
+	int end;
+	int diff = end - start;
+};
+
+bool cmp(Time left,Time right) {
+	if (left.end < right.start) return true;
+	if (left.end > right.start) return false;
+	if (left.diff < right.diff) return true;
+	if (left.diff > right.diff) return false;
+	return false;
+}
+
+int main()
+{
+	Time lst[6] = { { 1,6 },
+	{ 3,8 },
+	{ 8,9 },
+	{ 2,4 },
+	{ 4,6 },
+	{ 7,9 } };
+	int endtime = 0;
+	sort(lst + 0, lst + 6, cmp);
+
+	for (int i = 0; i < 6; i++) {
+		cout << lst[i].start << ' ';
+	}
+}
+
+O(1)<O(logN)<O(N)<O(N^2)
+이진트리의 높이는 logN
+logN의 경우 값이 나눠지는 경우
+편향되어있지 않은 경우
+데이터 2배 절반으로
+벡터는 begin,end
+back으로 마지막 원소를 참조,배기 가능
+popback은 return하지 않음
+back으로 읽은뒤 처리
+문자열 비교시 ==가능
+크기 7까지
+*/
+
+
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+using namespace std;
+struct Node {
+	int data;
+	char ch;
+};
+struct cmp {
+	//먼저 나올 값을 오른쪽에 배치한다.
+	//구조체는 다르다
+	bool operator() (Node& left, Node& right) {
+		//1.짝수먼저
+		if (left.data % 2 == 1 && right.data % 2== 0) return true;
+		if (left.data % 2 == 0 && right.data % 2== 1) return false;
+		//2.작은값 먼저
+		if (left.data > right.data) return true;
+		if (left.data < right.data) return false;
+		//3.알파벳 순서대로
+		
+		//if (left.ch < right.ch) return false;
+		//if (left.ch > right.ch) return true;
+		return left.ch > right.ch;
+
+		return false;
+	}
+};
+
+int main()
+{
+	/*priority_queue <char> pq;
+	string str;
+	cin >> str;
+	for (int i = 0; i < str.length(); i++)
+		pq.push(str[i]);
+	while (!pq.empty()) {
+		cout << pq.top();
+		pq.pop();
+	}*/
+	//default가 maxheap
+	//less<char> a<b
+	//prioty_queue<char,vector<char>,less<char>>pq;
+	//input을 받을때 size가 계속해서 변화함,for문을 사용하지 않는다
+	//priority queue에서는 index를 사용하지 않는다.
+	//less는 클래스 true or false를 반환
+	//lses<char>()(1,3) 객체함수이 사용
+	//a(1,3) 1<3과 동일 클래스를 함수처럼 사용
+	//less<int>()()
+	return 0;
+}
+	
+
