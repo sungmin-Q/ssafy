@@ -1,0 +1,55 @@
+/*
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct node {
+	int time;
+	int row, col;
+};
+
+struct cmp {
+	bool operator()(node& left, node& right) {
+		return left.time > right.time;
+	}
+};
+int N;
+
+bool isOut(int r, int c) {
+	return r < 0 || c < 0 || r >= N || c >= N;
+}
+int main()
+{
+	int MAP[1000][1000];
+	priority_queue<node, vector<node>, cmp> pq;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> MAP[i][j];
+			pq.push({ MAP[i][j],i,j });
+		}
+	}
+
+	//마지막에 터진 폭탄의 값을 저장,이미 터졌는지 저장된것 확인
+	//[row][col]이 터졌는지
+	int isBombed[1000][1000] = { 0 };
+	int dr[] = { -1,1,0,0 };
+	int dc[] = {0,0,-1,1};
+	int ans = 0;
+	while (!pq.empty()) {
+		node now = pq.top();
+		pq.pop();
+
+		//뽑은뒤 과정을 진행함
+		if (isBombed[now.row][now.col] == 1) continue;
+		ans = MAP[now.row][now.col];
+		for (int i = 0; i < 4; i++) {
+			int nr = now.row + dr[i];
+			int nc = now.row + dc[i];
+			if(isOut(now.row, now.col)) continue;
+			isBombed[nr][nc] = 1;
+		}
+	}
+	cout << ans << "초";
+}
+*/
