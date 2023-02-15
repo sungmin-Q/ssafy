@@ -613,65 +613,510 @@ int main() {
 }
 */
 
+//#include <iostream>
+//#include <queue>
+//#include <string>
+//using namespace std;
+//struct Edge {
+//	int node;
+//	int cost;
+//};
+//struct Node {
+//	int node; // start ~~~~ > node
+//	int accCost; // start~~~>node 까지의 누적비용 
+//};
+//struct cmp
+//{
+//	bool operator() (Node& left, Node& right)
+//	{
+//		return left.accCost > right.accCost;
+//	}
+//};
+//int N, T;
+//vector<Edge> adj[8];
+//void input() {
+//	cin >> N >> T;
+//	for (int i = 0; i < T; i++)
+//	{
+//		int a, b, cost;
+//		cin >> a >> b >> cost;
+//		adj[a].push_back({ b,cost });
+//	}
+//}
+//const int INF = 1e9; // 10억 
+//int main() {
+//	freopen_s(new FILE*, "input.txt", "r", stdin);
+//	input();
+//	priority_queue<Node, vector<Node>, cmp> pq;
+//	int dist[8];  // dist[A] : PQ에 있는 A의 제일 작은 누적비용 
+//	for (int i = 1; i <= 7; i++) dist[i] = INF;
+//	int start = 1;
+//	pq.push({ start, 0 }); // start, start~~>start비용
+//	dist[start] = 0;
+//	while (!pq.empty())
+//	{
+//		Node now = pq.top(); pq.pop();
+//		if (now.accCost > dist[now.node]) continue;
+//		// proccess 
+//		for (Edge& next : adj[now.node])
+//		{
+//			int newCost = now.accCost + next.cost; // start~~~~>now + 간선비용
+//			if (newCost < dist[next.node])
+//			{
+//				dist[next.node] = newCost;
+//				pq.push({ next.node, dist[next.node] });
+//			}
+//		}
+//	}
+//	for (int node = 1; node <= 7; node++)
+//	{
+//		cout << start << "~~~~~~>" << node << "의 최소비용 : " << dist[node] << endl;
+//	}
+//
+//	return 0;
+//}
+
+
+
+/*
+union find disjointset
+소속/그룹을 만들고 유지/관리하는 알고리즘
+결합이 된 상태(팀을 구성)
+union:서로 두개의 다른 집합으로 결합하는 작업
+ex) M&A
+find:특정 소속에 속한 멤버가 어떤 소곡에 포함되어있는지 찾아가고 판단하는 작업
+ex) 결제를 받기 위해 대장을 찾아가는 작업
+2가지 동작으로 구성된다
+
+find
+팀장이 소속 그 자체
+대장이 곧 소속
+찾아가는 과정: 재귀로 구성한다.
+계속해서 팀장을 찾으러 가야함
+find(11)->find(6)->find(3)->find(0)
+특정 노드에서 시작하여 나의 부모가 누구인지 기록하면 재귀로 사용가능
+dat: 나의 부모가 누구인지 저장
+parent
+index: 노드
+value: 부모
+노드->부모->노드->부모...
+
+#include <iostream>
+using namespace std;
+
+//find:소속을 찾아가는 알고리즘
+// 정보:정보(부모정보)를 저장할 parent의 필요
+// find최적화 path compresson(경로압축)
+// 소속을 단 1회 찾으면 O(1)로 접근 가능
+//경로 압축
+//장점: 시간 효율성의 증가
+//단점: 돌이킬수 없음
+
+int parent[20];
+int N, M;
+
+int Find(int now) {
+	//find의 시간 복잡도: O(N)
+	//종료조건
+	//now의 부모가 나랑 같다면: 소속을 찾음
+	if (now == parent[now]) {
+		return now;
+	}
+	//재귀구성
+	//대장이 아니면 나의 부모를 찾아가라
+
+	//나의 부모(소속)은 = 돌아올때 가지고 있던 값이다.
+	//return find(parent[now]); 경로 압축 전
+
+	//경로 압축
+	//O(1)~O(NlogN)
+	return parent[now] = Find(parent[now]);
+}
+
+void Union(int A,int B) {
+	// 두 개의 노드 결합이 아닌
+	// 집합과 집합간의 합
+	// 유니온 대장끼리만 결합,밑의 노드에는 합병 정보가 갱신되지 않음
+	// 합병후 
+	
+	// #1.각 노드의 소속을 확인
+	int pa = Find(A);
+	int pb = Find(B);
+
+	// #2.B의 소속을 A로 만듬
+	parent[pb] = pa;
+};
+int main()
+{
+	//parent는 자기자신이 대장인 상태
+	//개별적인 상태로 시작
+	cin >> N >> M;
+	for (int i = 0; i < N; i++) {
+		parent[i] = i;
+	}
+
+	for (int i= 0; i < M; i++) {
+		int A, B;
+		cin >> A >> B;
+		parent[A] = B;
+		Union(A, B);
+	}
+
+	a와 b가 같은 그룹인지 비교 하기위해
+	parent를 사용하지 않음
+	한번더 업데이트 필요
+	if(parent[a]==parent[b])
+	A의 대표를 다시 한번 찾아가며  parent를 update
+	상위 노드에 대한 경로압축
+	if(parent[2]==parent[6]) -> false;
+	if(Find[2]==Find[6]) -> true;
+	
+	int a, b;
+	cin >> a >> b;
+}
+*/
+
+/*
+	문자
+	n개의 회사 m개의 인수확병 과정
+	A가  B를 인수할때 A회사가 대표회사이고 B회사로부터
+	10명의 개발자 데려옴 M개의 인수 확병후 회사들에 남들 개발자의 수
+*/
+
+/*
+개발자 수를 저장하는 dat를 생성한다
+합병이 되면 개발자를 대려옴
+최상위 boss에서 10명씩 더해주고
+인수된 boss에서 10명씩 뺌
+
+union이 된경우 다시 합병을 할때 다시 결합할 경우 문제발생가능
+1. main에서 union을 하기전 확인하는 경우
+	A와 B가 같은 소속인 경우 결합하지 않음
+2. union내부에서 A와 B가 같은 소속인경우 합병을 거치지 않음
+
+
+자기자신이 부모인 노드를 구성한다
+input으로 노드간 연결을 입력
+uinon
+각 노드간 소속을 확인
+동일한 노드 소속인지 검사
+소속을 변경
+find
+재귀로 구성
+부모를 찾아줌
+main
+부모가 자신인 노드의 생성
+부모 노드 아닌find를 통해 찾음
+*/
+
+/*
+최단거리로만 이동함
+가장 먼 위치를 구하기
+가장 오기 힘든위치의 피로도를 출력함
+다익스트라 최단거리
+방향배열을 이용
+다익스트라 최단거리
+우선순위큐 만들고 처음 위치를 저장
+큐가 종료될때까지 반복,next에서 값의 비교를 통해 우선순위를 변경
+최소 값을 모든 배열에 넣어둔뒤 다익스트라
+*/
+/*
+피로도를 누적해야함
+인접한 값 좌표정보를 통해 이동하는 정보 가져옴
+*/
+
+
+//테스트 케이스 초기화
+//디버깅시 arr을 통해 접근함
+
+/*
 #include <iostream>
 #include <queue>
-#include <string>
 using namespace std;
-struct Edge {
+
+const int Max = 10;
+int arr[Max]{ Max };
+struct node {
+	int i;
+	int j;
+	int sum;
+};
+node start;
+
+struct cmp {
+	bool operator()(node left, node right) {
+		return (left.sum > right.sum);
+	}
+};
+int di[] = { 1,-1,0,0 };
+int dj[] = { 0,0,-1,1 };
+
+void dijk(node start) {
+	priority_queue<node, vector<node>, cmp > pq;
+	int cost = 1;
+	int dist[100][100];
+	//dist초기화
+	int si = 2, sj = 1;
+	pq.push({ si,sj,cost });
+	const int Inf = 21e8;
+	for (int i = 0, j = 0; (i < 100) && (j<100); i++,j++) {
+		dist[i][j] = Inf;
+	}
+	dist[start.i][start.j] = start.sum;
+	while (!pq.empty()) {
+		node now = pq.top();
+		pq.pop();
+		if (dist[now.i][now.j] < now.sum) continue; //now에서 큰것을 뽑은 경우
+		
+		for (node next : arr[now.i][now.j]) {
+			for (int t = 0; t < 4; t++) {
+				int ni = now.i + di[t];
+				int nj = now.j + dj[t];
+				if (ni < 0 || nj < 0 || ni >= N || nj >= N) continue;
+				if (arr[ni][nj] == -1) continue;
+				//new cost의 위치
+				int newCost = next.sum + now.sum;
+				if (dist[now.i][now.j] < newCost) continue;
+				
+				
+			}
+			dist[next.i][next.j] = newCost;
+			pq.push({ next.i,next.j,dist[next.i][next.j] });
+		}
+	}
+}
+int N, E;
+void input()
+{
+	cin >> start.i >> start.j;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> arr[i][j];
+		}
+	}
+	start.sum = arr[start.i][start.j];
+}
+void input()
+{
+	init();	//초기화
+	intut();
+	//좌표를 입력 받음
+	cin >> N >> E;
+	for (int i = 0; i < E; i++) {
+		node from, to, cost;
+		cin >> from.i >> from.j >> from.sum;
+		cin >> to.i >> to.j >> to.sum;
+		adj[from].push_back()
+	}
+}
+int main()
+{
+	
+}
+*/
+/*
+#include <iostream>
+#include <queue>
+using namespace std;
+
+struct Node {
 	int node;
 	int cost;
 };
-struct Node {
-	int node; // start ~~~~ > node
-	int accCost; // start~~~>node 까지의 누적비용 
-};
-struct cmp
-{
-	bool operator() (Node& left, Node& right)
-	{
-		return left.accCost > right.accCost;
+const int Inf = 21e8;
+int N, E;
+vector<Node>adj[100];
+
+bool operator < (Node left, Node right) {
+	if (left.cost < right.cost) return false;
+	if (left.cost > right.cost) return true;
+	return false;
+}
+
+vector<Node> lst[100];
+int dist[100];
+int visit[100];
+priority_queue<Node> pq;
+
+void dijk(int start) {
+	dist[start] = 0;
+	pq.push({ 0,dist[start]});
+
+	while (!pq.empty()) {
+		Node now = pq.top();
+		pq.pop();
+	
+		for (Node next : adj[now.node]) {
+			int newCost = next.cost + dist[now.node];
+			if (dist[next.node] < newCost) continue;
+			dist[next.node] = newCost;
+			pq.push({ next.node,dist[next.node] });
+		}
 	}
-};
-int N, T;
-vector<Edge> adj[8];
-void input() {
-	cin >> N >> T;
-	for (int i = 0; i < T; i++)
-	{
-		int a, b, cost;
-		cin >> a >> b >> cost;
-		adj[a].push_back({ b,cost });
+	cout << dist[N - 1];
+}
+
+int main()
+{
+	cin >> N >> E;
+	for (int i = 0; i < E; i++) {
+		int from, to, cost;
+		cin >> from >> to >> cost;
+		adj[from].push_back(Node{ to,cost });
+	}
+	dijk(0);
+	return 0;
+}
+*/
+
+/*
+#include <iostream>
+#include <vector>
+using namespace std;
+int arr[100][100];
+int cnt;
+int visited[100][100] = { 0 };
+int N, M;
+
+void dfs(int si, int sj) {
+	for (; si < N; si++) {
+		for (; sj < M; sj++) {
+			if(visited[i][j])
+			cnt++;
+		}
 	}
 }
-const int INF = 1e9; // 10억 
-int main() {
-	freopen_s(new FILE*, "input.txt", "r", stdin);
-	input();
-	priority_queue<Node, vector<Node>, cmp> pq;
-	int dist[8];  // dist[A] : PQ에 있는 A의 제일 작은 누적비용 
-	for (int i = 1; i <= 7; i++) dist[i] = INF;
-	int start = 1;
-	pq.push({ start, 0 }); // start, start~~>start비용
-	dist[start] = 0;
-	while (!pq.empty())
-	{
-		Node now = pq.top(); pq.pop();
-		if (now.accCost > dist[now.node]) continue;
-		// proccess 
-		for (Edge& next : adj[now.node])
-		{
-			int newCost = now.accCost + next.cost; // start~~~~>now + 간선비용
-			if (newCost < dist[next.node])
-			{
-				dist[next.node] = newCost;
-				pq.push({ next.node, dist[next.node] });
+
+int main()
+{
+	cin >> N, M;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> arr[i][j];
+		}
+	}
+
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			if (arr[i][j]&&visited[i][j]==1) {
+				dfs(i, j);
 			}
 		}
 	}
-	for (int node = 1; node <= 7; node++)
-	{
-		cout << start << "~~~~~~>" << node << "의 최소비용 : " << dist[node] << endl;
-	}
+}
 
-	return 0;
+*/
+
+/*
+1. 문제이해
+	조건파악
+	구하는것이 무었이지
+	
+2. 설계 
+	todolist
+	시간복잡도 검증
+	시뮬레이션
+3. 구현
+	작명에 신경
+	가독성 있게
+4. 디버깅
+*/
+
+//섬에 방문했는지여부
+//육지인지 여부
+//범위를 넘지않는지 여부
+
+//이미 같은 그룹일때 사이클이 발생함
+// 2차원 배열의 확산
+// 
+// 
+// 
+//
+//
+
+//flood fill
+//now가 갈수 있는 노드의 확인
+//범위체크
+//방문예약
+//방문
+
+
+/*
+flood fill
+시작노드생성
+시작위치,종료위치
+**방문 배열의 생성
+방향배열
+범위체크 
+벽체크
+*/
+
+#include <iostream>
+#include <queue>
+using namespace std;
+struct Node {
+	int row;
+	int col;
+};
+char arr[100][100] = { 0 };
+int N, M;
+Node start, mid, dest;
+
+void input()
+{
+	cin >> N >> M;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			cin >> arr[i][j];
+		}
+	}
+}
+void find() {
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			if (arr[i][j] == 'S') {
+				start.row = i;
+				start.col = j;
+			}
+			else if (arr[i][j] == 'C') {
+				mid.row = i;
+				mid.col = j;
+			}
+			else if (arr[i][j] == 'D') {
+				dest.row = i;
+				dest.col = j;
+			}
+		}
+	}
+}
+void bfs(Node A, Node B) {
+	queue<Node> q;
+	q.push(A);
+	int visited[100][100] = { 0 };
+	visited[A.row][A.col] = 0;
+
+	int rd[] = { 1,-1,0,0 };
+	int cd[] = { 0,0,-1,1 };
+
+	while (!q.empty()) {
+		Node now = q.front();
+		q.pop();
+
+		for (int i = 0; i < 4; i++) {
+			int nr = now.row + rd[i];
+			int nc = now.col + cd[i];
+			if (nr < 0 || nc < 0 || nr >= N || nc >= M) continue;
+			if (visited[nr][nc] == 1) continue;
+			if (arr[nr][nc] == '.') continue;
+			visited[nr][nc] = visited[now.row][now.col] + 1;
+			q.push({ nr,nc });
+		}
+	}
+}
+int main()
+{
+	input();
+	find();
+	bfs(start, dest);
 }
