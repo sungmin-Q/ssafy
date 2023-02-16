@@ -1052,6 +1052,7 @@ flood fill
 벽체크
 */
 
+/*
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -1119,4 +1120,186 @@ int main()
 	input();
 	find();
 	bfs(start, dest);
+}
+*/
+
+/*
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+struct Node {
+	int row;
+	int col;
+
+	bool operator ==(Node right) {
+		return row == right.row && col == right.col;
+	}
+};
+const int N=6,M=5;
+Node parent[N][M];	//링크를 알려줌 , parent[3][4] => {2,4}
+int Map[N][M];
+int sizeOf[N][M];	//보스의 크기(최대 맵의 크기),root에서 관리
+
+Node Find(Node now) {
+	Node p = parent[now.row][now.col];
+	if (now.row == p.row && now.col == p.col) return now;
+	Node ret = Find(parent[now.row][now.col]);
+	parent[now.row][now.col] = ret;
+	return ret;
+}
+
+void Union(Node a, Node b) {
+	Node ra = Find(a);
+	Node rb = Find(b);
+	if (ra.row == rb.row && ra.col == rb.col) return;
+	parent[rb.row][rb.col] = ra;
+	sizeOf[ra.row][ra.col] += sizeOf[rb.row][rb.col];
+	sizeOf[rb.row][rb.col] = 0;		//디버깅 위해
+}
+
+void input()
+{
+	int Q;
+	cin >> Q;
+	for (int i = 0; i < Q; i++) {
+		int row, col;
+		cin >> row >> col;
+		parent[row][col] = { row,col };
+		sizeOf[row][col] = 1;
+		int dr[] = { 1,-1,0,0 };
+		int dc[] = { 0,0,-1,1 };
+
+		for (int t = 0; t < 4; t++) {
+			int nr = row + dr[t];
+			int nc = col + dc[t];
+			if (nc < 0 || nr < 0 || nr >= N || nc >= N) continue;
+
+			if (Find{ nr,nc }) = ({ -1,-1 });		//땅이 있는지
+			
+			Union({ row,col }, { nr,nc });
+			
+		}
+	}
+}
+
+//root가 몇 개인지로 땅의 크기를 찾을수 있다
+
+int size
+void bfs(int row,int col) {
+	queue<Node> que;
+	que.push({ row,col });
+
+	int dist[100][100];
+	dist[row][col] = 0;
+
+	
+	while (!que.empty()) {
+		Node now = que.front();
+		que.pop();
+
+		for (int t = 0; t < 4; t++) {
+			int nr = now.row + dr[t];
+			int nc = now.col + dc[t];
+			if (nc < 0 || nr < 0 || nr >= N || nc >= N) continue;
+			if (dist[nr][nc] != 0) continue;
+			dist[nr][nc] = dist[now.row][now.col]+1;
+
+		}
+	}
+}
+int main()
+{
+	//땅이 몇개나 생겼는지 boss의 개수를 세준다
+
+	int total;
+	int maxSize = -1;
+	for (int row = 0; row < N; row++) {
+		for (int col = 0; col < M; col++) {
+			Node r = Find({ row,col });
+			if (row == r.row && col == r.col) {
+				total++;
+				maxSize = max(sizeof[row][col], maxSize);
+			}
+		}
+	}
+
+}
+mapping을 통하여 자료형을 이용가능
+row,col
+MAP[row][col]=1
+parent[1]=2
+*/
+
+/*
+MST
+최소비용으로 모든 노드가 포함되는 트리를 만든다
+어떻게 최소비용으로 구할수 있는지
+신장트리는 여러가지 나올수 있음
+최소신장트리도 여러개 나올수 있음(비용이 동일한것이 여러개일때)
+간선들을 선택해 나감(비용이 적은것 기준)
+MST에 포함
+간선정보를 가지고 있어야함(간선리스트)
+간선비용,연결된 정보들을 벡터에 저장
+정렬을 통해 최소 간선비용을 갖는 값을 찾아줄수 있음
+*/
+
+
+//간선리스트의 저장
+//모든 간선을 Edge에 저장
+/*
+N T
+1 2 2
+1 5 4
+1 4 1
+*/
+
+// bfs 2회 사용시 초기화 필요
+// 간선을 뒤집어 생각가능
+//큐는 뽑을때 탐색된다
+#include <iostream>
+#include <queue>
+using namespace std;
+int N;
+int arr[7][7];
+int cmp[7][7];
+struct Node {
+	int row;
+	int col;
+};
+Node start;
+int num = 0;
+int Ant;
+int Cmp;
+
+void input() {
+	cin >> N;
+	for (int i = 0; i <= N; i++) {
+		for (int j = 0; j <= N; j++) {
+			cin >> arr[i][j];
+		}
+	}
+}
+void numOfAnt() {
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			if (arr[i][j] == 1) Ant++;
+		}
+	}
+}
+int isWrap(int num) {
+	for (int i = -num; i <= num; i++) {
+		for (int j = -num; j <= num; j++) {
+			if (arr[i][j] == 1) Cmp++;
+		}
+	}
+	if (Cmp == Ant) return 1;
+	else return 0;
+}
+
+int main()
+{
+	input();
+	num = 2;
+	cout<<isWrap(num);
 }
