@@ -1257,49 +1257,365 @@ N T
 // bfs 2회 사용시 초기화 필요
 // 간선을 뒤집어 생각가능
 //큐는 뽑을때 탐색된다
+//#include <iostream>
+//#include <queue>
+//using namespace std;
+//int N;
+//int arr[7][7];
+//int cmp[7][7];
+//struct Node {
+//	int row;
+//	int col;
+//};
+//Node start;
+//int num = 0;
+//int Ant;
+//int Cmp;
+//
+//void input() {
+//	cin >> N;
+//	for (int i = 0; i <= N; i++) {
+//		for (int j = 0; j <= N; j++) {
+//			cin >> arr[i][j];
+//		}
+//	}
+//}
+//void numOfAnt() {
+//	for (int i = 0; i < N; i++) {
+//		for (int j = 0; j < N; j++) {
+//			if (arr[i][j] == 1) Ant++;
+//		}
+//	}
+//}
+//int isWrap(int num) {
+//	for (int i = -num; i <= num; i++) {
+//		for (int j = -num; j <= num; j++) {
+//			if (arr[i][j] == 1) Cmp++;
+//		}
+//	}
+//	if (Cmp == Ant) return 1;
+//	else return 0;
+//}
+//
+//int main()
+//{
+//	input();
+//	num = 2;
+//	cout<<isWrap(num);
+//}
+
+/*
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+int N = 10;
+int arr[] = { 4,4,5,7,8,10,20,22,23,24 };
+
+int binSearch(int s, int e, int target) {
+	int mid = (s + e) / 2;
+	if (arr[mid] == target) {
+		cout << "found";
+		return 1;
+	}
+	else if (arr[mid] < target) {
+		binary_search(mid + 1, e, target);
+		return mid;
+	}
+	else if (arr[mid] < target) {
+		binary_search(s, mid-1, target);
+		return mid;
+	}
+	if (s > e) {
+		cout << "not find";
+		return -1;
+	}
+}
+int main() {
+	binSearch(0,9,8);
+}
+*/
+
+/*runtime error*/
+/*
+#include <iostream>
+using namespace std;
+
+int main() {
+	char oil[10];
+	for(int i=0;i<10;i++)
+		cin >> oil[i];
+	
+
+	int s = 0;
+	int e = 9;
+	int ans = -1;
+
+	while (s <= e) {
+		int mid = (s + e) / 2;
+		if (oil[mid] == '#') {
+			//새 답의 후보로 선택
+			ans = max(ans, mid);
+			s=mid + 1;
+		}
+		else {
+			e = mid - 1;
+		}
+	}
+	cout << ans+1<<"0%";
+
+	return 1;
+}
+*/
+
+/*
+runtime error
+index
+return
+#include <iostream>
+using namespace std;
+
+int main() {
+	
+	string oil;
+	cin >> oil;
+	int s = 0;
+	int e = 9;
+	int ans = -1;
+
+	while (s <= e) {
+		int mid = (s + e) / 2;
+		if (oil[mid] == '#') {
+			//새 답의 후보로 선택
+			ans = max(ans, mid);
+			s = mid + 1;
+		}
+		else {
+			e = mid - 1;
+		}
+	}
+	cout << ans + 1 << "0%";
+
+	return 0;
+}
+[lb,ub)
+ub-lb
+*/
+
+/*
+#include<iostream>
+using namespace std;
+
+int main() {
+	int lst[10];
+	for (int i = 0; i < 10; i++)
+		cin >> lst[i];
+	const int W = 5;
+	const int N = 10;
+	int sum = 0;
+	for (int i = 0; i < W; i++) {
+		sum += lst[i];
+	}
+
+	int slow = 0;
+	int fast = W-1;
+	int Max = -21e8;
+	while (fast < 9) {
+		sum -= lst[slow];
+		slow++;
+		fast++;
+		sum += lst[fast];
+		if (Max < sum) {
+			Max = sum;
+		}
+	}
+
+	//해당구간의 정보를 확인할것
+	//[a,b]
+	//[a,b)
+	
+	cout << Max;
+}
+*/
+
+/*
 #include <iostream>
 #include <queue>
 using namespace std;
-int N;
-int arr[7][7];
-int cmp[7][7];
 struct Node {
 	int row;
 	int col;
 };
-Node start;
-int num = 0;
-int Ant;
-int Cmp;
 
-void input() {
-	cin >> N;
-	for (int i = 0; i <= N; i++) {
-		for (int j = 0; j <= N; j++) {
+int visited[100][100] = { false };
+int arr[100][100];
+int totalcnt;
+Node Maxidx;
+int maxi, maxj;
+
+void bfs(int row,int col) {
+	queue<Node> que;
+	que.push({row,col});
+
+	int dr[] = { 1,-1,0,0 };
+	int dc[] = { 0,0,-1,1 };
+	int cnt=0;	
+
+	while (!que.empty()) {
+		Node now = que.front();
+		que.pop();
+		
+		for (int t = 0; t < 4; t++) {
+			int nr = now.row + dr[t];
+			int nc = now.col + dc[t];
+			if (nr < 0 || nc < 0 || nr>=4 || nc>=9) continue;
+			if (arr[now.row][now.col] != arr[nr][nc]) continue;
+			if (visited[nr][nc] == 1) continue;
+			visited[nr][nc] = 1;
+			cnt++;
+			que.push({ nr,nc });
+//			cout <<nr<<' '<<nc << ' ' << cnt << endl;
+		if (totalcnt < cnt) {
+			totalcnt = cnt;
+			Maxidx = ({ nr,nc });
+			maxj = nr;
+			maxi = nc;
+		}
+		}
+	}
+}
+void input()
+{
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 9; j++) {
 			cin >> arr[i][j];
 		}
 	}
 }
-void numOfAnt() {
+int main()
+{
+	input();
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 9; j++) {
+			bfs(i, j);
+		}
+	}
+	cout << totalcnt*arr[maxj][maxi];
+}
+*/
+
+//for문을 이용하여 타이거 새우는 nr, nc에 3배, 오징어는 4배
+
+/*
+______###
+______###
+______###
+_____####
+____##___
+#________
+##_______
+###______
+*/
+
+//#include <iostream>
+//#include <queue>
+//using namespace std;
+//struct Node {
+//	int row;
+//	int col;
+//};
+//queue<Node> save;
+//char arr[10][10];
+//int visited[10][10];
+//
+//void bfs(int row,int col) {
+//	queue<Node> que;
+//	que.push({ row,col });
+//
+//	visited[row][col] = true;
+//	while (!que.empty()) {
+//		Node now = que.front();
+//		que.pop();
+//		int dr[] = { 1,-1,0,0 };
+//		int dc[] = { 0,0,-1,1 };
+//		for (int t = 0; t < 4; t++) {
+//			int nr = now.row + dr[t];
+//			int nc = now.col + dc[t];
+//			if (visited[nr][nc] == true) continue;
+//			if (arr[nr][nc] == '_') continue;
+//			if (nr < 0 || nc < 0 || nr >= 8 || nc >= 9) continue;
+//			visited[nr][nc] = 1;
+//			que.push({ nr,nc });
+//			save.push({ nr,nc });
+//		}
+//	}
+//}
+//void input() {
+//	for (int i = 0; i < 8; i++) {
+//		for (int j = 0; j < 9; j++) {
+//			cin >> arr[i][j];
+//		}
+//	}
+//}
+//int main()
+//{
+//	input();
+//	for (int i = 0; i < 8; i++) {
+//		for (int j = 0; j < 9; j++) {
+//			bfs(i, j);
+//		}
+//	}
+//	int df = 1;
+//}
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int N;
+int arr[10][10], bit[10][10];
+vector<int> lst;
+void input() {
+	cin >> N;
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
-			if (arr[i][j] == 1) Ant++;
+			cin >> arr[i][j];
+		}
+	}
+
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> bit[i][j];
 		}
 	}
 }
-int isWrap(int num) {
-	for (int i = -num; i <= num; i++) {
-		for (int j = -num; j <= num; j++) {
-			if (arr[i][j] == 1) Cmp++;
+void bitmask() {
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			arr[i][j] = arr[i][j] * bit[i][j];
+			if (arr[i][j]) lst.push_back(arr[i][j]);
 		}
 	}
-	if (Cmp == Ant) return 1;
-	else return 0;
+	int df = 1;
+}
+bool cmp(int left, int right) { // LEFT 가 먼저 나올때 TRUE  리턴
+	if (left == right) return true;
+	else {
+		if (left < right) return true;
+		if (left > right) return false;
+	}
+	return false;
 }
 
 int main()
 {
 	input();
-	num = 2;
-	cout<<isWrap(num);
+	bitmask();
+	// DAT
+
+
+	sort(lst.begin(), lst.end(), cmp);
+	for (int num : lst)
+		cout << num;
 }
