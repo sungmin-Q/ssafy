@@ -1,2 +1,6 @@
 ﻿  mincoding.cpp
+C:\Users\SSAFY\Desktop\ssafy\mincoding\mincoding\mincoding.cpp(1693,11): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SSAFY\Desktop\ssafy\mincoding\mincoding\mincoding.cpp(1693,25): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SSAFY\Desktop\ssafy\mincoding\mincoding\mincoding.cpp(1713,11): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SSAFY\Desktop\ssafy\mincoding\mincoding\mincoding.cpp(1714,11): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   mincoding.vcxproj -> C:\Users\SSAFY\Desktop\ssafy\mincoding\x64\Debug\mincoding.exe

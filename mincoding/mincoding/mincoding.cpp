@@ -1568,6 +1568,7 @@ ____##___
 //	int df = 1;
 //}
 
+/*
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -1618,4 +1619,112 @@ int main()
 	sort(lst.begin(), lst.end(), cmp);
 	for (int num : lst)
 		cout << num;
+}
+*/
+
+/*
+#include <iostream>
+using namespace std;
+char parent[100];
+int flag = 0;
+char Find(char now) {
+	if (now == parent[now])
+		return now;
+	return parent[now] = Find(now);
+}
+void Union(char A,char B) {
+	char pA = Find(A);
+	char pB = Find(B);
+	if (pA == pB) { 
+		flag = 1;
+		return;
+	}
+	parent[pB] = pA;
+}
+int main() {
+	for (int i = 0; i < 100; i++)
+		parent[i] = i;
+	for (int i = 0; i < 4; i++) {
+		char A, B;
+		cin >> A >> B;
+		Union(A, B);
+	}
+	if (flag)
+		cout << "발견";
+	else
+		cout << "미발견";
+}
+*/
+
+/*
+#include <iostream>
+using namespace std;
+int arr[4][8] = { 0,0,3,3,0,0,0,0,
+				5,1,4,2,6,9,8,1,
+				6,5,1,3,2,6,3,2,
+				0,0,0,0,9,9,4,0
+};
+struct rowvalue {
+	int startcol;
+	int endcol;
+	int value;
+};
+rowvalue value[8];
+void calculaterow() {
+	for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < 8; i++) {
+
+		}
+	}
+}
+int main() {
+
+}
+*/
+
+//동전교환
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+using namespace std;
+int T1[7], T2[7];		//T1 코딩테스트,T2 면접
+const int N=5;
+int HighT1=21e8, HighT2 = 21e8;
+int LowT2, LowT1;
+int cnt = 0;
+int i1, i2;
+void input() {
+	//cin >> N;
+	for (int i = 0; i < N; i++) {
+		cin >> T1[i] >> T2[i];
+		if (HighT1 > T1[i]) {
+			HighT1 = T1[i];
+			LowT2 = T2[i];
+			i1 = i;
+		}
+		else if (HighT2 > T2[i]) {
+			HighT2 = T2[i];
+			LowT1 = T1[i];
+			i2 = i;
+		}
+	}
+
+	T1[i1] = 21e8;
+	T2[i2] = 21e8;
+}
+int main() {
+	input();
+
+	cout << LowT2 << ' ' << LowT1;
+	for (int i = 0; i < N; i++) {
+		// 최저점 보다는 잘한경우
+		if (LowT1 > T1[i] || LowT2 > T2[i]) {
+			cnt++;
+			cout << T1[i] << ' ' << T2[i] << endl;
+		}
+	}
+	if (HighT1 == HighT2) cnt -= 1;
+	else cnt -= 2;
+	cout << cnt;
 }

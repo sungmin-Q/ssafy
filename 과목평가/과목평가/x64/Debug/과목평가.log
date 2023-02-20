@@ -1,0 +1,4 @@
+﻿  마법사의 몬스터.cpp
+C:\Users\SSAFY\Desktop\ssafy\과목평가\과목평가\마법사의 몬스터.cpp(5,9): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SSAFY\Desktop\ssafy\과목평가\과목평가\마법사의 몬스터.cpp(35,25): warning C4244: '=': '__int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  과목평가.vcxproj -> C:\Users\SSAFY\Desktop\ssafy\과목평가\x64\Debug\과목평가.exe
