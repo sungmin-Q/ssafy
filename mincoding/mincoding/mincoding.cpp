@@ -1682,49 +1682,172 @@ int main() {
 }
 */
 
-//동전교환
+/*
 #include <iostream>
-#include <algorithm>
-#include <vector>
-#include <queue>
 using namespace std;
-int T1[7], T2[7];		//T1 코딩테스트,T2 면접
-const int N=5;
-int HighT1=21e8, HighT2 = 21e8;
-int LowT2, LowT1;
-int cnt = 0;
-int i1, i2;
-void input() {
-	//cin >> N;
-	for (int i = 0; i < N; i++) {
-		cin >> T1[i] >> T2[i];
-		if (HighT1 > T1[i]) {
-			HighT1 = T1[i];
-			LowT2 = T2[i];
-			i1 = i;
-		}
-		else if (HighT2 > T2[i]) {
-			HighT2 = T2[i];
-			LowT1 = T1[i];
-			i2 = i;
+struct Row {
+	int start;
+	int end;
+	int value;
+};
+Row rowsum[8];
+int arr[4][8];
+
+void sum(){
+	for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < 4; i++) {
+			rowsum[j].value += arr[i][j];
+			
+			rowsum[j].start = i;
+			rowsum[j].end = j;
+
 		}
 	}
-
-	T1[i1] = 21e8;
-	T2[i2] = 21e8;
+}
+void input() {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 8; j++) {
+			cin >> arr[i][j];
+		}
+	}
 }
 int main() {
 	input();
-
-	cout << LowT2 << ' ' << LowT1;
-	for (int i = 0; i < N; i++) {
-		// 최저점 보다는 잘한경우
-		if (LowT1 > T1[i] || LowT2 > T2[i]) {
-			cnt++;
-			cout << T1[i] << ' ' << T2[i] << endl;
-		}
-	}
-	if (HighT1 == HighT2) cnt -= 1;
-	else cnt -= 2;
-	cout << cnt;
+	sum();
 }
+*/
+//일단 재귀로 구현후 memolization'
+
+
+//탑다운 DP
+//Backtracking 인데, 메모 가지치기
+
+
+//int a=getResult(y,x+1)+현재
+
+
+//Max = getResult(index);
+//int a=getResult(index-2)+v[index]
+//int a=getResult(index-7)+v[index]
+//int result=max(a,b)
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+//int arr[7][7] = { 0,0,0,0,0,0,0,
+//				0,0,1,0,1,0,0,
+//				0,1,0,1,0,0,0,
+//				0,0,1,0,0,0,0,
+//				0,1,0,0,0,1,1,
+//				0,0,0,0,1,0,0,
+//				0,0,0,0,1,0,0
+//};
+bool visited[7] = { 0 };
+vector<int> arr[100];
+void predfs(int now) {
+	for (int i = 6; i >= 1; i--) {
+		//if (arr[now][i] == 0) continue;
+		if (visited[i] == 1) continue;
+		visited[i] = 1;
+		cout << now << ' ';
+		predfs(i);
+	}
+}
+void postdfs(int now) {
+for (int i = 6; i >= 1; i--) {
+		//if (arr[now][i] == 0) continue;
+		if (visited[i] == 1) continue;
+		visited[i] = 1;
+		postdfs(i);
+		cout << now << ' ';
+	}
+}
+void init() {
+	for (int i = 0; i < 7; i++)
+		visited[i] = 0;
+}
+int N, E,start;
+void input() {
+	cin >> N >> E;
+	cin >> start;
+	for (int i = 0; i < E; i++) {
+		int A, B;
+		cin >> A >> B;
+		arr[A].push_back(B);
+	}
+}
+int main() {
+	input();
+	visited[start] = 1;
+	cout << start << ' ';
+	predfs(start);
+	init();
+	cout << endl;
+	visited[start] = 1;
+	postdfs(start);
+	cout << start;
+	return 0;
+}
+
+
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+////int arr[7][7] = { 0,0,0,0,0,0,0,
+////				0,0,1,0,1,0,0,
+////				0,1,0,1,0,0,0,
+////				0,0,1,0,0,0,0,
+////				0,1,0,0,0,1,1,
+////				0,0,0,0,1,0,0,
+////				0,0,0,0,1,0,0
+////};
+//bool visited[7] = { 0 };
+//vector<int> arr[100];
+//void predfs(int now) {
+//	for (int i = 6; i >= 1; i--) {
+//		//if (arr[now][i] == 0) continue;
+//		if (visited[i] == 1) continue;
+//		visited[i] = 1;
+//		cout << i << ' ';
+//		predfs(i);
+//	}
+//}
+//void postdfs(int now) {
+//	for (int i = 6; i >= 1; i--) {
+//		//if (arr[now][i] == 0) continue;
+//		if (visited[i] == 1) continue;
+//		visited[i] = 1;
+//		postdfs(i);
+//		cout << i << ' ';
+//	}
+//}
+//void init() {
+//	for (int i = 0; i < 7; i++)
+//		visited[i] = 0;
+//}
+//int N, E, start;
+//void input() {
+//	cin >> N >> E;
+//	cin >> start;
+//	for (int i = 0; i < E; i++) {
+//		int A, B;
+//		cin >> A >> B;
+//		arr[A].push_back(B);
+//		arr[B].push_back(A);
+//	}
+//}
+//int main() {
+//	input();
+//	visited[start] = 1;
+//	cout << start << ' ';
+//	predfs(start);
+//	init();
+//	cout << endl;
+//	visited[start] = 1;
+//	postdfs(start);
+//	cout << start;
+//	return 0;
+//}
