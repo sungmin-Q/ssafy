@@ -1,4 +1,5 @@
-﻿//#include <iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS 
+//#include <iostream>
 //#include <algorithm>
 //#include <vector>
 //#include <queue>
@@ -1731,65 +1732,6 @@ int main() {
 //int a=getResult(index-7)+v[index]
 //int result=max(a,b)
 
-#include <iostream>
-#include <vector>
-using namespace std;
-
-//int arr[7][7] = { 0,0,0,0,0,0,0,
-//				0,0,1,0,1,0,0,
-//				0,1,0,1,0,0,0,
-//				0,0,1,0,0,0,0,
-//				0,1,0,0,0,1,1,
-//				0,0,0,0,1,0,0,
-//				0,0,0,0,1,0,0
-//};
-bool visited[7] = { 0 };
-vector<int> arr[100];
-void predfs(int now) {
-	for (int i = 6; i >= 1; i--) {
-		//if (arr[now][i] == 0) continue;
-		if (visited[i] == 1) continue;
-		visited[i] = 1;
-		cout << now << ' ';
-		predfs(i);
-	}
-}
-void postdfs(int now) {
-for (int i = 6; i >= 1; i--) {
-		//if (arr[now][i] == 0) continue;
-		if (visited[i] == 1) continue;
-		visited[i] = 1;
-		postdfs(i);
-		cout << now << ' ';
-	}
-}
-void init() {
-	for (int i = 0; i < 7; i++)
-		visited[i] = 0;
-}
-int N, E,start;
-void input() {
-	cin >> N >> E;
-	cin >> start;
-	for (int i = 0; i < E; i++) {
-		int A, B;
-		cin >> A >> B;
-		arr[A].push_back(B);
-	}
-}
-int main() {
-	input();
-	visited[start] = 1;
-	cout << start << ' ';
-	predfs(start);
-	init();
-	cout << endl;
-	visited[start] = 1;
-	postdfs(start);
-	cout << start;
-	return 0;
-}
-
 
 
 //#include <iostream>
@@ -1851,3 +1793,199 @@ int main() {
 //	cout << start;
 //	return 0;
 //}
+
+/*
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <algorithm>
+#include <math.h>
+using namespace std;
+int n = 9;
+int dat[200] = { 0 };
+int visited[200] = { 0 };
+int len;
+int Max = 9;
+string mixstr;
+string laststr;
+vector<string> str;
+vector<string> cpystr;
+int N; 
+void input() {
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        string tmp;
+        cin >> tmp;
+        str.push_back(tmp);
+    }
+    len = str.size();
+    for (int i = 0; i < str.size(); i++) {
+        cpystr.push_back(str[i]);
+    }
+}
+void Mix() {
+    //mixstr.push_back((str[i].back()));      //2개일때는 문제 없었음
+    //str[i].pop_back();
+	for (int i = 0; i < str.size(); i++) {
+		dat[str[i][0]] = n--;
+	}
+}
+void Map() {
+    while (!mixstr.empty()) {
+        char tmp = mixstr.back();
+        if (visited[tmp] == 1) { 
+            mixstr.pop_back();
+            continue; 
+        }
+        visited[tmp] = 1;
+        dat[tmp] = Max--;
+        laststr.push_back(tmp);
+        mixstr.pop_back();
+    }
+}
+int conv(string num) {
+    int length = num.length();
+    int sum = 0;
+    for (int i = 0; i < length; i++) {
+        sum += (dat[num[i]] * pow(10,(length-i-1)));
+    }
+    return sum;
+}
+int main() {
+    input();
+    Mix();
+    Map();
+	for (int i = ; i < str.size(); i++)
+		conv(dat[i]);
+}
+*/
+
+/*
+#include <iostream>
+#include <algorithm>
+#include <map>
+#include <unordered_map>
+#include <string>
+using namespace std;
+
+map<int, string> m;
+unordered_map<int, string>om;
+string arr[] = { "hi","hi" ,"GGG","hi" ,"GGG" };
+unordered_map<string, int> um;
+int main() {
+	
+	배열의 한계
+	1. 음수 사용불가
+	2. 문자열 사용불가
+	3. 큰 수 사용 불가
+	
+	// 입력 전 빠른검색을 위한 초기화
+	// o(1)의 속도
+	for (int i = 0; i < 5; i++) {
+		um[arr[i]]++;
+	}
+	string tmp;
+	cin >> tmp;
+
+	// 주의 등록 안된것을 물어보지 않기(물어보면 추가됨)
+	if (um[tmp] == 0)
+		cout << "empty";
+	cout << um[tmp];
+	// uno에서 물어보기
+	if (um.count(tmp) == 0)
+		cout << "empty";
+	// 둘 다 string으로 놓기
+	unordered_map<string, string> playername;
+	unordered_map<string, string> playernum;
+
+
+	int main() {
+		plyername["jodan"] = 63;
+		plyername[63] = "jodan";
+		plyername["joan"] = 61;
+		plyername[61] = "joan";
+
+		string s;
+		cin >> s;
+		if (playername.count(s) > 0)
+			cout << playername[s];
+	}
+}
+*/
+
+//좌표찾기
+/*
+#include <iostream>
+#include <algorithm>
+#include <map>
+#include <unordered_map>
+#include <string>
+using namespace std;
+struct Node {
+	int row;
+	int col;
+};
+unordered_map<int, Node> um;
+int main() {
+	um[15] = { 11,-7 };
+	um[55] = { -7,11 };
+	um[-7] = { -55,-9 };
+	int n;
+	cin >> n;
+	if (um.count(n) > 0) {
+		cout << um[n].row << ',' << um[n].col;
+	}
+	else {
+		cout << -1;
+	}
+
+}
+iq찾기 하나의 map내용을 중복하여 저장
+*/
+
+//등록되진 않은 키값을 검색
+	//freopen("input.txt", "r", stdin);
+	/*string a = "reg";
+	int n = um[a].size();
+	for (int i = 0; i < n; i++) {
+		Node ret = um[a][i];
+		cout << ret.id << ret.password;
+	}*/
+
+#include <iostream>
+using namespace std;
+int Min = 21e8;
+int visited[10];
+int arr[10][10];
+int N;
+int Minidx = 0;
+void dfs(int now, int cnt, int sum) {
+	if (cnt == N) {
+		if (Min > sum) {
+			Min = sum;
+			Minidx = now;
+		}
+	}
+	for (int i = 0; i < N; i++) {
+		if (arr[now][i] == 0) continue;
+		if (visited[i] == 1) continue;
+		visited[i] = 1;
+		dfs(i, cnt + 1, sum + arr[now][i]);
+	}
+}
+void input() {
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> arr[i][j];
+		}
+	}
+
+}
+int main() {
+	freopen_s(new FILE*, "input.txt","r",stdin);
+	input();
+	//visited[0] = 1;
+	dfs(0, 0, 0);
+	cout << Min + arr[Minidx][0];
+}
