@@ -1,0 +1,82 @@
+//피보나치
+0 1 로시작
+
+0 1 2  3 4 5 6
+0 1 1 2 3 5 8 ..
+
+
+6번 index 정답 = 8
+
+#include <iostream>
+using namespace std;
+int memo[100];
+//일단 재귀로 구현후 memolization'
+
+
+//탑다운 DP
+//Backtracking 인데, 메모 가지치기
+
+int fibo(int index) {
+	//아까 정답을 구해둔게 있나?
+	//있으면 그 정답 바로 리턴
+	if (memo[index] != 0) return memo[index];
+	
+	if (index == 0) return 0;
+	if (index == 1) return 1;
+
+	int a = fibo(index - 2);
+	int b = fibo(index - 1);
+
+	memo[index] = a + b;
+	return a + b;
+}
+
+//Top Down 생각 방법
+//1. fibo 아직 구현은 안했지만, 이미 완성되어있음 생각하고 구현
+
+int main() {
+	cout << fibo(6);
+
+	//int arr[10] = { 0, 1 };
+
+	////DP의 정의 : 기존에 구했던 정답을 이용, 현재 정답 구하는 방식
+	//for (int i = 2; i < 10; i++) {
+	//	arr[i] = arr[i - 2] + arr[i - 1];
+	//}
+
+}
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int memo[10001];
+int price,N;
+vector<int> coins;
+int getMin(int price) {
+	if(price<0) return 21e8;
+	if (price == 0) return 0;
+	if (memo[price] != 0) return memo[price];
+
+	int a = getMin(price - 10) + 1;
+	int b = getMin(price - 50) + 1;
+	int c = getMin(price - 70) + 1;
+
+	int result = min(min(a, b), c);
+}
+void input() {
+	cin >> price >> N;
+	for (int i = 0; i < N; i++) {
+		int tmp;
+		cin >> tmp;
+		coins.push_back(tmp);
+	}
+}
+
+int main() {
+	int ret = getMin(100);
+	cout << ret << "개";
+
+	return 0;
+}

@@ -1,0 +1,58 @@
+
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+int n;
+int leftover[4];
+int nums[20];
+int Max, Min;
+
+void dfs(int lev, int result) {
+
+	if (lev == n - 1) {
+		Max = max(Max, result);
+		Min = min(Min, result);
+		return;
+	}
+	int backup[4];
+	//backup 에다가 처음 시작 상태 저장
+	memcpy(backup, leftover, 4*4);
+
+	for (int i = 0; i < 4; i++) {
+		if (leftover[i] == 0) continue;
+		leftover[i]--;
+		if (i == 0) dfs(lev + 1, result + nums[lev + 1]);
+		if (i == 1) dfs(lev + 1, result - nums[lev + 1]);
+		if (i == 2) dfs(lev + 1, result * nums[lev + 1]);
+		if (i == 3) dfs(lev + 1, result / nums[lev + 1]);
+		//leftOper[i]++;
+		//leftover 전역변수로 dfs이후 원상복구 되지 않음
+		//원상복구 합,memcpy
+		memcpy(leftover, backup, 4*4);
+	}
+}
+void input() {
+	memset(leftover, 0, 4*4);
+	memset(nums, 0, 20 * 4);
+	n = 0;
+	Max = -21e8;
+	Min = 21e8;
+
+	cin >> n;
+	for (int i = 0; i < 4; i++) cin >> leftover[i];
+	for (int i = 0; i < n; i++) cin >> nums[i];
+
+}
+int main() {
+	freopen_s(new FILE*, "input.txt", "r", stdin);
+	int tc = 0;
+	cin >> tc;
+	for (int T = 1; T <= tc; T++) {
+		input();
+		dfs(0, nums[0]);
+		cout << "#" << T << " " << Max - Min << "\n";
+	}
+	return 0;
+}

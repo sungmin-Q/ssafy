@@ -1952,40 +1952,223 @@ iq찾기 하나의 map내용을 중복하여 저장
 		cout << ret.id << ret.password;
 	}*/
 
+/*
 #include <iostream>
 using namespace std;
-int Min = 21e8;
-int visited[10];
-int arr[10][10];
+
 int N;
-int Minidx = 0;
-void dfs(int now, int cnt, int sum) {
-	if (cnt == N) {
-		if (Min > sum) {
-			Min = sum;
-			Minidx = now;
+int lst[101],sum;
+int visited[101];
+
+int path[101];
+char oper[101] = {'*', '+','-'};
+void input() {
+	cin >> N;
+	for (int i = 0; i < N; i++)
+		cin >> lst[i];
+}
+void func(int op,int lev) {
+	if (lev == N-1) {
+		//cout << path<<':';
+		sum = lst[0];
+		for (int i = 0; i < N-1; i++) {
+			if (path[i] == 0) {
+				sum *= lst[i+1];
+			}
+			else if (path[i] == 1) {
+				sum += lst[i+1];
+			}
+			else if (path[i] == 2) {
+				sum -= lst[i+1];
+			}
 		}
+		for (int i = 0; i < N - 1; i++)
+			cout << path[i]<<': ';
+		cout << sum;
+		
+		cout << endl;
+
+		return;
 	}
 	for (int i = 0; i < N; i++) {
-		if (arr[now][i] == 0) continue;
-		if (visited[i] == 1) continue;
-		visited[i] = 1;
-		dfs(i, cnt + 1, sum + arr[now][i]);
+		path[lev] =  i;
+		func(i,lev+1);
+		sum = 0;
+		path[lev] = 0;
+	}
+}
+int main() {
+	//freopen("input.txt", "r", stdin);
+	input();
+	func(0,0);
+}
+*/
+
+//폭탄설치
+/*
+#include <iostream>
+#include <queue>
+using namespace std;
+int N, M;
+int num, row, col;
+int B;
+struct Node {
+	int num;
+	int row;
+	int col;
+	bool operator<(const Node& right) const
+	{
+		if (num < right.num) return false;
+		if (num > right.num) return true;
+		return false;
+	}
+
+};
+priority_queue<Node> pq;
+bool bomb[1000][1000] = {false};
+void fire(Node node) {
+	int dr[] = { 1, -1, 0, 0 };
+	int dc[] = {0, 0, -1, 1};
+	for (int i = 0; i < 4; i++) {
+		int nr = node.row + dr[i];
+		int nc = node.col + dc[i];
+		if (nr < 0 || nc < 0 || nc >= 1000 || nr >= 1000) continue;
+		bomb[nr][nc] = true;
+	}
+}
+
+int main() {
+	cin >> N >> M;
+	for (int i = 0; i < M + N; i++) {
+		int tmp;
+		cin >> tmp;
+		if (tmp == 0) {
+			B = 0;
+			// 폭탄이 터짐
+			Node coord = pq.top();
+			cout<<"boom!!!" << coord.num << endl;
+			pq.pop();
+			bomb[coord.row][coord.col];
+			fire(coord);
+		}
+		else {
+			num = tmp;
+			cin >> row >> col;
+			pq.push({ num,row,col });
+		}
+	}
+}
+*/
+
+/*
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int n;
+char leftover[4];
+int nums[20];
+int Max, Min;
+
+void dfs(int lev, int result) {
+	if (lev == n - 1) {
+		Max = max(Max, result);
+		Min = min(Min, result);
+		return;
+	}
+	
+	//back up
+	char backup[4];
+	memcpy(backup, leftover, 4);
+
+	for (int i = 0; i < 4; i++) {
+		if (leftover[i] == '0') continue;
+		//leftover[i]--;
+		if (i == 0) dfs(lev + 1, result + nums[lev + 1]);
+		if (i == 1) dfs(lev + 1, result - nums[lev + 1]);
+		if (i == 2) dfs(lev + 1, result * nums[lev + 1]);
+		if (i == 3) dfs(lev + 1, result / nums[lev + 1]);
+		//leftover[i]++;
+		memcpy(leftover, backup, 4);
+	}
+}
+
+int main() {
+	freopen_s(new FILE*, "input.txt", "r", stdin);
+	int T = 0;
+	cin >> T;
+	for (int tc = 1; tc <= T; tc++) {
+		memset(leftover, 0, 4);
+		memset(nums, 0, 20 * 4);
+		n = 0;
+		Max = -21e8;
+		Min = 21e8;
+
+		cin >> n;
+		for (int i = 0; i < 4; i++) cin >> leftover[i];
+		for (int i = 0; i < n; i++) cin >> nums[i];
+
+		dfs(0, nums[0]);
+
+		cout << '#' << tc << ' ' << Max - Min << endl;
+	}
+	return 0;
+}
+*/
+
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+int n;
+int leftover[4];
+int nums[20];
+int Max, Min;
+
+void dfs(int lev, int result) {
+
+	if (lev == n - 1) {
+		Max = max(Max, result);
+		Min = min(Min, result);
+		return;
+	}
+	int backup[4];
+	//backup 에다가 처음 시작 상태 저장
+	memcpy(backup, leftover, 4*4);
+
+	for (int i = 0; i < 4; i++) {
+		if (leftover[i] == 0) continue;
+		leftover[i]--;
+		if (i == 0) dfs(lev + 1, result + nums[lev + 1]);
+		if (i == 1) dfs(lev + 1, result - nums[lev + 1]);
+		if (i == 2) dfs(lev + 1, result * nums[lev + 1]);
+		if (i == 3) dfs(lev + 1, result / nums[lev + 1]);
+		//leftOper[i]++;
+		//leftover 전역변수로 dfs이후 원상복구 되지 않음
+		//원상복구 합,memcpy
+		memcpy(leftover, backup, 4*4);
 	}
 }
 void input() {
-	cin >> N;
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			cin >> arr[i][j];
-		}
-	}
+	memset(leftover, 0, 4*4);
+	memset(nums, 0, 20 * 4);
+	n = 0;
+	Max = -21e8;
+	Min = 21e8;
+
+	cin >> n;
+	for (int i = 0; i < 4; i++) cin >> leftover[i];
+	for (int i = 0; i < n; i++) cin >> nums[i];
 
 }
 int main() {
-	freopen_s(new FILE*, "input.txt","r",stdin);
-	input();
-	//visited[0] = 1;
-	dfs(0, 0, 0);
-	cout << Min + arr[Minidx][0];
+	freopen_s(new FILE*, "input.txt", "r", stdin);
+	int tc = 0;
+	cin >> tc;
+	for (int T = 1; T <= tc; T++) {
+		input();
+		dfs(0, nums[0]);
+		cout << "#" << T << " " << Max - Min << "\n";
+	}
+	return 0;
 }
