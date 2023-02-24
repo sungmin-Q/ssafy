@@ -1,0 +1,114 @@
+/*
+# 등산로
+최대값 => 모든 경로를 살핀다.
+재귀 or dfs
+최대 공사 가능 깊이
+가장 높은 봉우리의 위치
+높이를 깍을수 있음
+	이미 더 낮은곳은 깍을 필요없음
+	경로가 막힌 경우 (더 높거나 같은 높이일때)
+	깍아서 가보기
+
+1.최대값만 찾은뒤 돌며 최대값인 위치에서만 계산
+2.모든 가장 높은 봉우리 위치저장 -> 그위치 놓은뒤 계산
+
+최대한 조금깍아야 갈수있는 경우를 좁히지 않음
+필요요소를 구조체에 넣어주기
+*/
+
+
+#include <iostream>
+#include <cstring>
+#include <vector>
+using namespace std;
+
+int N;
+int K;
+int map[10][10];
+int visited[10][10];
+int Max = -21e8;
+int cnt = 0;
+struct Node {
+	int row;
+	int col;
+	int canbreak;   //아직 깍을 수 있는지 여부
+};
+vector<Node>v;		//가장 높은 봉우리 담기용
+
+int ans = -21e8;
+int dr[] = { 1,-1,0,0 };
+int dc[] = { 0,0,-1,1 };
+void dfs(Node now) {
+	if (cnt > ans) {
+		ans = cnt;
+	}
+	
+	//재귀구성
+	for (int i = 0; i < 4; i++) {
+		int nr = now.row + dr[i];
+		int nc = now.col + dc[i];
+		if (nr < 0 || nc < 0 || nr >= N || nc >= N) continue;
+		if (visited[nr][nc] == 1) continue;
+		dfs({ nr,nc });
+		//1.다음의 위치기 더 높거나 같은 경우 -> 깍음
+		if (map[nr][nc] >= map[now.row][now.col]) {
+			//1-1.깍을 기회있는 경우
+			if (now.canbreak == 1) {
+				//다음위치를 k까지 깍아줄때 내 위치 이하면 다음 위치를
+				//내위치-1로 깍음(최대한 많이 이동하기 위함)
+				if (map[nr][nc] - K < map[now.row][now.col]) {
+					int tmp = map[nr][nc];
+					//map반영
+					map[nr][nc] = map[now.row][now.col] - 1;
+					visited[nr][nc] = 1;
+					//깍은 상태
+					cnt++;
+					dfs({ nr,nc,0 });
+					visited[nr][nc] = 0;
+					map[nr][nc] = tmp;
+					//나올때 복구해야함 기존의 값을 모르기때문에 복구불가
+					// ex)12 9일때 8 9 변경
+				}
+			}
+			//1-2.깍을 기회없는 경우 (아무것도 안함)
+		}
+		//2.지금 가려는 곳이 내위치 기준 낮은 경우 -> 감
+		else {
+			visited[nr][nc] = 1;
+			//지금 상태의 유지
+			cnt++;
+			dfs({ nr,nc,now.canbreak });
+			visited[nr][nc] = 0;
+			cnt--;
+		}
+	}
+}
+
+
+int main() {
+	freopen_s(new FILE*, "input.txt", "r", stdin);
+	int T;
+	cin >> T;
+	memset(map, 0, size(map));
+	for (int tc = 0; tc < T; tc++) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cin >> map[i][j];
+				if (map[i][j] > Max) {
+					v.clear();			//기존의 봉우리 쓸모없음
+					v.push_back({ i,j,1});
+					Max = map[i][j];
+				}
+				else if (map[i][j] == Max) {
+					v.push_back({ i,j });
+				}
+			}
+		}
+
+		for (int i = 0; i < v.size(); i++)
+			//visited 초기화 필요
+			visited[v[i].row][v[i].col] = 1;
+		cnt = 1;
+		
+	}
+}
