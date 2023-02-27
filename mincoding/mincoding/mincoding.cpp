@@ -2494,6 +2494,7 @@ int main() {
 }
 */
 
+/*
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -2636,3 +2637,156 @@ int main() {
 		cout << "#" << tc << " " << ans << '\n';
 	}
 }
+*/
+
+/*
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+int N;
+int op[4];
+int nums[20];
+int Max, Min;
+int Max = -21e8;
+int Min = 21e8;
+
+
+void dfs(int lev, int result) {
+
+	if (lev == N - 1) {
+		Max = max(Max, result);
+		Min = min(Min, result);
+		return;
+	}
+
+	for (int i = 0; i < 4; i++) {
+		if (op[i] == 0) continue;
+		op[i]--;
+		if (i == 0) {
+			dfs(lev + 1, result + nums[lev + 1]);
+			op[i]++;
+		}
+		if (i == 1) {
+			dfs(lev + 1, result - nums[lev + 1]);
+			op[i]++;
+		}
+		if (i == 2) {
+			dfs(lev + 1, result * nums[lev + 1]);
+			op[i]++;
+		}
+		if (i == 3) {
+			dfs(lev + 1, result / nums[lev + 1]);
+			op[i]++;
+		}
+		//원상복구
+	}
+}
+void input() {
+	cin >> N;
+	memset(op, 0, sizeof(op));
+	memset(nums, 0, sizeof(nums));
+
+	for (int i = 0; i < N; i++) cin >> nums[i];
+	for (int i = 0; i < 4; i++) cin >> op[i];
+
+}
+int main() {
+	input();
+	dfs(0, nums[0]);
+	cout << Max << ' ' << Min << endl;
+	return 0;
+}
+
+tc
+2
+5 6
+0 0 1 0
+[출력 예시1]
+30
+30
+
+[입력 예시2]
+3
+3 4 5
+1 0 1 0
+[출력 예시2]
+35
+17
+7
+
+[입력 예시3]
+6
+1 2 3 4 5 6
+2 1 1 1
+[출력 예시3]
+54
+-2
+*/
+
+/*
+미로찾기
+#include <iostream>
+#include <queue>
+using namespace std;
+queue<pair<int, int>> que;
+const int Max = 100;
+int arr[Max][Max];
+int dist[Max][Max];
+bool visited[Max][Max];
+int dr[] = { 1,-1,0,0 };
+int dc[] = { 0,0,-1,1 };
+bool flag = false;
+void bfs(int nowrow, int nowcol) {
+	que.push({ nowrow,nowcol });
+	visited[nowrow][nowcol] = true;
+	dist[nowrow][nowcol] = 1;
+
+	while (!que.empty()) {
+		int row = que.front().first;
+		int col = que.front().second;
+		que.pop();
+
+		for (int i = 0; i < 4; i++) {
+			int nr = row + dr[i];
+			int nc = col + dc[i];
+			if (nr < 0 || nc < 0 || nr >= 16 || nc >= 16) continue;
+			if (visited[nr][nc] == false && arr[nr][nc] != 1) {
+				visited[nr][nc] = true;
+				dist[nr][nc] = dist[row][col] + 1;
+				que.push({ nr,nc });
+				if (arr[nr][nc] == 3)
+					flag = true;
+			}
+		}
+	}
+}
+void print() {
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 16; j++) {
+			cout<<dist[i][j]<<' ';
+		}
+		cout << endl;
+	}
+}
+void input() {
+	for (int i = 0; i < 16; i++) {
+		string str;
+		cin >> str;
+		for (int j = 0; j < 16; j++) {
+			arr[i][j] = str[j] - '0';
+		}
+	}
+}
+int main() {
+	input();
+	bfs(1, 1);
+	print();
+	//cout << flag;
+	
+	cout << flag;
+	if (flag)
+		cout << "exist";
+}
+*/

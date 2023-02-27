@@ -1,0 +1,60 @@
+// 연산자 슬롯머신.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
+//
+
+#include <iostream>
+using namespace std;
+int N;
+int nums[6];
+int op[4];
+int Max = -21e8;
+int Min = 21e8;
+int idx = 1;
+
+void dfs(int val, int lev) {
+    if (lev == N) {
+        //if (Max < val) Max = val;
+        Max = max(val, Max);
+        //if (Min > val) Min = val;
+        Min = min(val, Min);
+        return;
+    }
+
+    for (int i = 0; i < 4; i++) {
+        if (op[i] == 0) continue;
+        // 합
+            op[i]--;
+        if (i == 0) {
+            dfs(val + nums[idx++], lev + 1);
+            op[i]++;
+        }
+        // 차
+        if (i == 1) {
+            dfs(val - nums[idx++], lev + 1);
+            op[i]++;
+        }
+        // 곱
+        if (i == 2) {
+            dfs(val * nums[idx++], lev + 1);
+            op[i]++;
+        }
+        // 나누기
+        if (i == 3) {
+            dfs(val / nums[idx++], lev + 1);
+            op[i]++;
+        }
+    }
+}
+void input() {
+    cin >> N;
+    for (int i = 0; i < N; i++)
+        cin >> nums[i];
+    for (int i = 0; i < 4; i++)
+        cin >> op[i];
+}
+int main()
+{
+    input();
+    dfs(nums[0], 1);
+    cout << Max << " " << Min;
+    return 0;
+}
