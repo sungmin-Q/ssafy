@@ -2790,3 +2790,64 @@ int main() {
 		cout << "exist";
 }
 */
+
+/*
+	#swea사다리
+	방향배열을 사용하다 갈림길이 나오면 그쪽으로 이동
+	좌우를 상하보다 먼저 해줌
+	좌우가 1인경우 상하는 0으로 설정함
+*/
+
+#include <iostream>
+#include <queue>
+using namespace std;
+
+queue<pair<int, int>>que;
+int arr[4][4] = {
+	7,0,0,0,
+	1,0,1,0,
+	1,1,1,0,
+	1,0,1,0
+};
+int path[4][4];
+bool visited[4][4];
+int dr[] = { 0,0,1,-1 };
+int dc[] = { -1,1,0,0 };
+void bfs(int row, int col) {
+	que.push({ row,col });
+	visited[row][col] = true;
+	path[row][col] = 9;
+
+	while (!que.empty()) {
+		int row = que.front().first;
+		int col = que.front().second;
+		que.pop();
+
+		visited[row][col] = true;
+		for (int i = 0; i < 4; i++) {
+			int nr = row + dr[i];
+			int nc = col + dc[i];
+			if (nr < 0 || nc < 0 || nr >= 4 || nc >= 4) continue;
+			if (path[nr][nc] == 9 || path[nc][nc]==9) continue;
+			if (visited[nr][nc] == false && arr[nr][nc] != 0) {
+				path[nr][nc] = 9;
+				visited[nr][nc] = true;
+				que.push({ nr,nc });
+				cout << path[nr][nc] << ' ';
+			}
+		}
+	}
+}
+
+void print() {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			cout << path[i][j];
+		}
+		cout << endl;
+	}
+}
+int main() {
+	bfs(0, 0);
+	print();
+}
