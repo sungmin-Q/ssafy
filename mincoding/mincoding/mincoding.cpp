@@ -2798,6 +2798,7 @@ int main() {
 	좌우가 1인경우 상하는 0으로 설정함
 */
 
+/*
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -2828,7 +2829,7 @@ void bfs(int row, int col) {
 			int nr = row + dr[i];
 			int nc = col + dc[i];
 			if (nr < 0 || nc < 0 || nr >= 4 || nc >= 4) continue;
-			if (path[nr][nc] == 9 || path[nc][nc]==9) continue;
+			if (path[nr][nc] == 9) continue;
 			if (visited[nr][nc] == false && arr[nr][nc] != 0) {
 				path[nr][nc] = 9;
 				visited[nr][nc] = true;
@@ -2851,3 +2852,312 @@ int main() {
 	bfs(0, 0);
 	print();
 }
+*/
+
+
+/*
+17 6 9 7 20
+23 3 21 18 8
+6 24 13 12 10
+9 2 5 15 22
+4 11 1 7 20
+
+17 6 9 7 20
+13 2 10 3 5
+15 18 8 12 14
+23 19 4 24 25
+22 1 21 11 16
+17 6 9 7 20
+23 3 21 18 8
+6 24 13 12 10
+9 2 5 15 22
+4 11 1 7 20
+
+*/
+/*
+#include<iostream>
+using namespace std;
+int main(int argc, char** argv)
+{
+	int test_case;
+	int T;
+	
+	//freopen("input.txt", "r", stdin);
+	cin >> T;
+	for (test_case = 1; test_case <= T; ++test_case)
+	{
+
+		int N;
+		int chain[4] = { 0 };
+		cin >> N;
+		int left = 2, right = 32;
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				int bit;
+				cin >> bit;
+				chain[i] = chain[i] << 1;
+				if (bit) chain[i] += 1;
+
+			}
+		}
+
+		for (int number = 0; number < N; number++)
+		{
+			int num, dir;
+			int turn[4] = { 0 };
+			cin >> num >> dir;
+			/////////////////////-----------------------------------------------
+			turn[num - 1] = 1;
+			for (int i = num - 2; i >= 0; i--)
+			{
+				if (!(chain[i] & right) xor !(chain[i + 1] & left)) {
+					turn[i] = 1;
+				}
+				else break;
+			}
+			for (int i = num; i < 4; i++)
+			{
+				if (!(chain[i - 1] & right) xor !(chain[i] & left)) {
+					turn[i] = 1;
+				}
+				else break;
+			}
+			/////////////////////-----------------------------------------------
+			if (num % 2 == 0 && dir == 1 || num % 2 == 1 && dir == -1) {
+				for (int i = 0; i < 4; i++)
+				{
+					if (turn[i]) {
+						if (i % 2) {
+							if (chain[i] & 1) {
+								chain[i] = chain[i] >> 1;
+								chain[i] += 128;
+							}
+							else {
+								chain[i] = chain[i] >> 1;
+							}
+						}
+						else {
+							if (chain[i] & 128) {
+								chain[i] -= 128;
+								chain[i] = chain[i] << 1;
+								chain[i] += 1;
+							}
+							else {
+								chain[i] = chain[i] << 1;
+							}
+						}
+					}
+				}
+			}
+			/////////////////////-----------------------------------------------
+			else {
+				for (int i = 0; i < 4; i++)
+				{
+					if (turn[i]) {
+						if (i % 2) {
+							if (chain[i] & 128) {
+								chain[i] -= 128;
+								chain[i] = chain[i] << 1;
+								chain[i] += 1;
+							}
+							else {
+								chain[i] = chain[i] << 1;
+							}
+						}
+						else {
+							if (chain[i] & 1) {
+								chain[i] = chain[i] >> 1;
+								chain[i] += 128;
+							}
+							else {
+								chain[i] = chain[i] >> 1;
+							}
+						}
+					}
+				}
+			}
+		}
+		/////////////////////-----------------------------------------------
+		int sum = 0;
+		for (int i = 3; i >= 0; i--)
+		{
+			if (chain[i] & 128) {
+				sum = sum << 1;
+				sum += 1;
+			}
+			else {
+				sum = sum << 1;
+			}
+		}
+
+		cout << '#' << test_case << ' ' << sum << '\n';
+	}
+	return 0;//정상종료시 반드시 0을 리턴해야합니다.
+}
+*/
+
+/*
+#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+vector<pair<int, int>> coord;
+queue<pair<int, int>> que;
+bool visited[10][10];
+int Max = -21e8;
+int Maxlen = -1e8;
+int N;
+int arr[10][10];
+int path[10][10];
+int dr[] = { -1,1,0,0 };
+int dc[] = { 0,0,-1,1 };
+void input() {
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> arr[i][j];
+			if (arr[i][j] > Max) {
+				Max = arr[i][j];
+				coord.clear();
+				coord.push_back({ i,j });
+			}
+			else if (arr[i][j] == Max) {
+				coord.push_back({ i,j });
+			}
+		}
+	}
+	int td = 0;
+}
+bool flag = false;
+void bfs(int si, int sj) {
+	que.push({ si,sj });
+	path[si][sj] = 1;
+	visited[si][sj] = true;
+
+	while (!que.empty()) {
+		int row = que.front().first;
+		int col = que.front().second;
+		que.pop();
+	
+		for (int i = 0; i < 4; i++) {
+			int nr = row + dr[i];
+			int nc = col + dc[i];
+			if (nr < 0 || nc < 0 || nr >= N || nc >= N) continue;
+			if (arr[row][col] > arr[nr][nc] && flag == false) {
+				flag = true;
+				int diff = arr[row][col] - arr[nr][nc];
+				arr[nr][nc] - diff - 1;
+			}
+			if (visited[nr][nc] == false && arr[row][col]>arr[nr][nc]) {
+				visited[nr][nc] = true;
+				path[nr][nc] = path[row][col]+1;
+				int len = path[nr][nc];
+				if (len > Maxlen) {
+					Maxlen = len;
+				}
+				que.push({ nr,nc });
+			}
+		}
+	}
+}
+void print() {
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			cout << path[i][j] << ' ';
+		}
+		cout << endl;
+	}
+}
+int main(int row,int col) {
+	input();
+	int i = 1;
+	while (!coord.empty()) {
+		int row = coord.back().first;
+		int col = coord.back().second;
+		coord.pop_back();
+		bfs(row, col);
+		cout << i++ << endl;
+		print();
+	}
+	cout << Maxlen;
+}
+*/
+/*
+5 
+9 3 2 3 2
+6 3 1 7 5
+3 4 8 9 9
+2 3 7 7 7
+7 6 5 5 8
+*/
+
+/*
+#include <iostream>
+using namespace std;
+int visited[16];
+int N,ans;
+bool checking(int row) {
+	for (int i = 0; i < row; i++) {
+		if (visited[i] == visited[row] || row-i == abs(visited[row] - visited[i]))
+			return false;
+	}
+	return true;
+}
+void Nqueen(int row) {
+	if (row == N) {
+		ans++;
+		return;
+	}
+
+	for (int i = 0; i < N; i++) {
+		visited[row] = i;
+		if (checking(row))
+			Nqueen(row + 1);
+	}
+}
+int main() {
+	cin >> N;
+	Nqueen(0);
+	cout << ans;
+}
+*/
+
+//#include <iostream>
+//using namespace std;
+//int N, M, C;
+//int arr[20][20];
+//void input() {
+//	cin >> N >> M >> C;
+//	for (int i = 0; i < N; i++) {
+//		for (int j = 0j; j < N; j++) {
+//			cin >> arr[i][j];
+//		}
+//	}
+//}
+//
+//void dfs(int si, int sj,int lev,int now) {
+//	if (lev == M) {
+//		return;
+//	}
+//	for (int i = now; i < 3; i++) {
+//
+//	}
+//}
+//
+//void solution() {
+//	// 1.구간별 수익 계산
+//	for (int i = 0; i < N; i++) {
+//		for (int j = 0; j < N; j++) {
+//			dfs(i, j);
+//		}
+//	}
+//}
+//int main() {
+//	int T;
+//	cin >> T;
+//	for (int tc = 1; tc <= T; tc++) {
+//		input();
+
