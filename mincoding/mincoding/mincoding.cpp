@@ -3161,3 +3161,43 @@ int main() {
 //	for (int tc = 1; tc <= T; tc++) {
 //		input();
 
+#include <iostream>
+using namespace std;
+
+int N, target;
+int len;
+
+// A -> B
+// (*10)+1
+// (*2)
+int cnt;
+bool flag = true;
+void dfs(int lev,int num) {
+	if (num >= target) {
+		if (num == target) {
+			cout << lev;
+			flag = false;
+		}
+		return;
+	}
+	for (int i = 0; i < 2; i++) {
+		if (i == 0) {
+			dfs(lev + 1, num * 2);
+		}
+		else {
+			dfs(lev + 1, num * 10 + 1);
+		}
+	}
+}
+void input() {
+	cin >> N >> target;
+	int tmp;
+	
+}
+
+int main() {
+	input();
+	dfs(1, N);
+	if (flag)
+		cout << -1;
+}

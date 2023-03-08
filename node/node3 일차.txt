@@ -1,0 +1,104 @@
+REST API
+
+HTTP method
+GET: 데이터를 읽거나 검색시 GET
+	웹사이트를 불러오는 경우 GET
+POST: 새로운 리소스를 생성할때 사용
+	(로그인, 게시글 작성)
+	규정하기 애매한 경우 POST의 사용
+PATCH: 일부 데이터를 수정할때 사용
+PUT: 전체 데이터를 수정할때 사용
+DELETE: 삭제요청시 사용
+
+위 method대로 요청하기 않아도 동작함
+그러나 restful하지는 않음
+
+HTTP method는 동사
+유저전체 정보 가져오기: GET/users
+유저등록: POST /users
+유저조회: GET/users/:id
+특정유저 수정: PATCH/users/id
+특정유저 삭제:DELETE /users/id
+
+cors: 포트허용범위(패키지)
+	허용범위를 설정가능
+	npm에서 다운
+express: 서버최적화(프레임워크)
+mysql2: mysql편리성위한 패키지
+DB index.js의 경우
+require를 통해 mysql과 연결관계를 확인가능
+?require
+username 우분투, DB 두가지 존재
+DB->index.js에서는 DB의 username을 사용함
+우분투 접속위해 접속정보 필요로 하지 않음
+포트에 방화벽을 열어놓아 루트 계정이 불필요
+DB: ssafy
+table: meunus
+?DB와 table
+?module.exports
+
+PORT=8080서버는 8080서버의 사용
+app.username(express.json())
+json()을 제공하는 restapi
+보일러플레이트 (상용구 코드)템플릿화됨
+cors 포트연결 (전세계 접속가능)
+미사용시 본인 컴퓨터에서만 사용가능
+{poll} DB에 접속하기위해 객체를 가져옴
+rest로의 경로 3개(get2개, post1개)
+get: 데이터 가져오기 (read) DB에 미영향
+post: 데이터 올리기 (creat) DB에 영향
+예외)비밀번호 get으로 보내지 않는다
+보안문제
+카페의 주문정보 post 새 메뉴를 추가한다
+rest의 원칙 (기본형)
+항상 복수로 사용, 암기
+GET /meunus		메뉴 전부 가져옴
+GET /meunus/:id	특정 id를 갖는 메뉴를 가져옴
+POST /meunus	새 메뉴의 추가
+PATCH /meunus/:id  특정 id의 메뉴를 수정한다
+DELETE /meunus/:id  특정 id를 메뉴를 삭제한다
+
+app.get("/api/menus", async (req, res) => 
+app.get(menus) 모든 메뉴가져오기
+서버와 통신시 try, catch
+mysql 3306
+backend 8080
+포트가 다름, 나가는것으로 판단 delay
+async, trycatch
+쿼리문에서 데이터 가져오기
+data[0] 0에서 원하는 데이터 존재
+다른 부분 쓰레기값 존재
+데이터를 먼저 찍어본뒤 원하는 값만 가져옴
+select *from menus 메뉴의 모든 값들을 가져옴
+app.get("/api/menus/:id", async (req, res) => {
+:id 실사용에서는 /뒤 id
+rest구현시 :을사용 (객체)
+[]배열, {}객체
+app.post("/api/menus", async (req, res) => {
+insert DB에 배열을 추가
+affectedRow:1
+영향받은 문자열의 수 
+0이면 이상
+값을 받을때 get
+주소/1 1번값을 가져옴
+값을 보낼때 post
+body, row, json
+delete하고 다음것부터 
+get한뒤 key값을 가져와 값을 찾음
+delete body(통채로) 못씀
+pram으로 접근후 삭제
+affectedRow를 통해 실패를 확인
+morgan (log)
+pram
+req.pram
+body 내용
+req.body.menu
+request내부에 무었이 있는지
+prams 배열에서 하나의 특정값을 뽑아쓸때
+여러 id들중 특정한 id의 값을 찾아쓸때
+하나 이상은 불필요함
+params는 url에 나옴(비밀번호 보안 문제)
+body의 사용
+ 정보가 긴 경우(url의 증가)
+ 비밀번호 입력시(post이용)
+ 

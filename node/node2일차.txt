@@ -1,0 +1,49 @@
+npm init
+packet.json생성
+
+node_modules: packet.json으로 부터 install한 실제 파일(대용량)
+packet.json -> npm init 동작시
+dependecies를 읽어서 install 진행
+node_modules 빼고 업로드 해도 자동으로 다운로드(npm i)
+script등록하여 사용가능
+go":node index.js
+npm run + 등록한 스크립트 실행
+ "go":"node index.js"
+ npm run go
+
+intstall -> i (축약)
+-g global
+해당 패키지 공용에서 사용가능
+어느 위치에서든 사용이가능함
+dependecies 실행에 필요한 목록(패키지 실행되기 위한 목록)
+npm i 모듈이 없어도 메모된 모든 모듈을 설치
+모듈 git에 올리지않음
+npm list 패키지 확인
+node moduls 설치한 실제 패키지
+package 설치한 패키지의 목록
+package lock 세부 목록
+
+const express=require("express");
+express기능 가져옴
+port: 방
+ip: 컴퓨터 1대
+주소를 입력 -> 함수의 동작(명령)
+상황에 맞는 일을 한뒤 값을 제공
+const express=require("express");
+const app=express()
+const PORT=8080;
+req: 요청(주소에 접근)
+res: 응답(함수를 거친뒤 응답의 시작)
+app.get("/api/info", (req,res)=>{
+	return res.json({
+		name:"Name", 
+		job:"Job", 
+	});
+});
+
+json제공 => restapi server
+app.use(())모든 ip접근을 허용
+app.use(cors{
+	allwip:["192.168, 56, 1"]
+	//해당 ip만 접근
+})

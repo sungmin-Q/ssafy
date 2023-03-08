@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<pair<int, int>> arr[25];
+bool on[5][5];
+
+void input() {
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			int num;
+			cin >> num;
+			arr[num].push_back({ i,j });
+		}
+	}
+}
+bool checking(int row, int col) {
+	int sum = 0;
+	int tmp = 0;
+	for (int j = 0; j < 5; j++) {
+		if (on[row][j] == false)
+			break;
+		if(j==4)
+			sum += 1;
+	}
+	for (int i = 0; i < 5; i++) {
+		if (on[i][col] == false)
+			break;
+		if(i==4)
+			sum += 1;
+	}
+	if (row == col) {
+		for (int i = 0; i < 5; i++) {
+			if (on[i][i] == false)
+				break;
+			if(i==4)
+				sum += 1;
+		}
+	}
+	if (row + col == 5) {
+		for (int i = 0; i < 5; i++) {
+			if (on[i][4-i] == false)
+				break;
+			if(i==4)
+				sum += 1;
+		}
+	}
+	if (sum == 3)
+		return true;
+	else
+		return false;
+}
+
+int main() {
+	input();
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			int num;
+			cin >> num;
+			int row = arr[num].front().first;
+			int col = arr[num].front().second;
+			on[row][col] = true;
+
+			if (checking(row, col)){
+				cout << num;
+				return 0;
+			}
+		}
+	}
+}

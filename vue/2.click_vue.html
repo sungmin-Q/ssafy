@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{message}}
+    <!-- vue에서 이벤트 활용 inline방식
+      v - on:click
+      v - on @로 대체가능
+      v - on:click="func" === @click="func"
+    -->
+    <button v-on:click="func">btn</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.min.js"></script>
+
+  <script>
+    const app=new Vue({
+      el:"#app",
+      data(){
+        return{
+          message:"hello Vue"
+        }
+      },
+      methode:{
+        func(){
+          //html 파트 외부에서
+          //data를 다른 method에 접근 하는 경우 this
+          console.log(this.message);
+          this.test();
+        },
+        test(){
+          console.log("check");
+        }
+      }
+    })
+  </script>
+</body>
+</html>
