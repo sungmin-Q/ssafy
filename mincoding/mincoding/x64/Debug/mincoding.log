@@ -1,3 +1,2 @@
 ﻿  mincoding.cpp
-C:\Users\SSAFY\Desktop\ssafy\mincoding\mincoding\mincoding.cpp(3195,6): warning C4101: 'tmp' :참조되지 않은 지역 변수입니다.
   mincoding.vcxproj -> C:\Users\SSAFY\Desktop\ssafy\mincoding\x64\Debug\mincoding.exe

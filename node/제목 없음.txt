@@ -1,0 +1,10 @@
+알고리즘
+struct sort
+struct cmp {
+	bool operator() (const string& A, const string& B) const {
+		if (A.size() == B.size())
+			return A < B;
+		else
+			return A.size() < B.size();
+	}
+};

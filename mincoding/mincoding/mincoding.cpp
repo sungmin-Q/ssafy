@@ -3124,80 +3124,165 @@ int main() {
 	cout << ans;
 }
 */
+/*
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <set>
+using namespace std;
+vector<string> lst;
+bool flag = false;
+
+struct cmp {
+	bool operator() (const string &A, const string &B) const{
+		if (A.size() == B.size())
+			return A < B;
+		else
+			return A.size() < B.size();
+	}
+};
+
+int main() {
+	int N;
+	cin >> N;
+	set<string,cmp> Set;
+	for (int i = 0; i < N; i++) {
+		string tmp;
+		cin >> tmp;
+		//lst.push_back(tmp);
+		Set.insert(tmp);
+	}
+	for (string tmp : Set)
+		cout << tmp << '\n';
+	return 0;
+}
+*/
+//struct cmp {
+//	bool operator() (const string& A, const string& B) const {
+//		if (A.size() == B.size())
+//			return A < B;
+//		else
+//			return A.size() < B.size();
+//	}
+//};
 
 //#include <iostream>
+//#include <string>
 //using namespace std;
-//int N, M, C;
-//int arr[20][20];
-//void input() {
-//	cin >> N >> M >> C;
-//	for (int i = 0; i < N; i++) {
-//		for (int j = 0j; j < N; j++) {
-//			cin >> arr[i][j];
-//		}
-//	}
-//}
+//int ans;
+//int num() {
+//	char tmp[5];
+//	for (int i = 0; i < 10001; i++) {
+//		_itoa_s(i, tmp, 10);
+//		for (int i = 0; i < 5; i++) {
 //
-//void dfs(int si, int sj,int lev,int now) {
-//	if (lev == M) {
-//		return;
-//	}
-//	for (int i = now; i < 3; i++) {
-//
-//	}
-//}
-//
-//void solution() {
-//	// 1.구간별 수익 계산
-//	for (int i = 0; i < N; i++) {
-//		for (int j = 0; j < N; j++) {
-//			dfs(i, j);
 //		}
 //	}
 //}
 //int main() {
-//	int T;
-//	cin >> T;
-//	for (int tc = 1; tc <= T; tc++) {
-//		input();
+//	num();
+//}
 
+/*
+	나이순 정렬
+	나이는 오름차순으로 같으면 먼저 가입자순으로
+	나이를 기준으로 만 정렬한다
+	연산자 오버로딩
+	어디서 틀렸는지
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-int N, target;
-int len;
-
-// A -> B
-// (*10)+1
-// (*2)
-int cnt;
-bool flag = true;
-void dfs(int lev,int num) {
-	if (num >= target) {
-		if (num == target) {
-			cout << lev;
-			flag = false;
-		}
-		return;
-	}
-	for (int i = 0; i < 2; i++) {
-		if (i == 0) {
-			dfs(lev + 1, num * 2);
-		}
-		else {
-			dfs(lev + 1, num * 10 + 1);
-		}
-	}
+struct person {
+	int age;
+	string name;
+};
+bool cmp (const person &left,const person &right) {
+	//if (left.age == right.age) return false;
+	return left.age < right.age;
 }
-void input() {
-	cin >> N >> target;
-	int tmp;
-	
-}
-
 int main() {
-	input();
-	dfs(1, N);
-	if (flag)
-		cout << -1;
+	int N;
+	cin >> N;
+	person tmp;
+	vector<person> lst;
+	for (int i = 0; i < N; i++) {
+		cin >> tmp.age >> tmp.name;
+		lst.push_back(tmp);
+	}
+	sort(lst.begin(), lst.end(),cmp);
+	for (int i = 0; i < N; i++)
+		cout << lst[i].age<<' '<< lst[i].name << '\n';
+	return 0;
+}
+*/
+
+/*
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+struct coord {
+	int row;
+	int col;
+	bool operator < (const coord& A) const {
+		if (row == A.row) return row < A.row;
+		return col < A.col;
+	}
+};
+
+vector<coord> lst;
+int main() {
+	int N;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		int A, B;
+		cin >> A >> B;
+		lst.push_back({ A,B });
+	}
+
+	sort(lst.begin(), lst.end());
+
+	for (int i = 0; i < lst.size(); i++)
+		cout << lst[i].row << ' ' << lst[i].col << '\n';
+	return 0;
+}
+*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+struct coord {
+	int row;
+	int col;
+};
+bool compare(coord left, coord right)
+{
+	/*if (left.col == right.col)
+		return left.row < right.row;
+	else {
+		return left.col < right.col;
+	}*/
+	return left.row < right.row;
+	return left.col < right.col;
+}
+
+int main()
+{
+	int n, x, y;
+	cin >> n;
+	vector<coord> lst;
+	for (int i = 0; i < n; i++) {
+		cin >> x >> y;
+		lst.push_back({ x,y });
+	}
+	sort(lst.begin(), lst.end(), compare);
+
+	for (int i = 0; i < n; i++) {
+		cout << lst[i].row << ' ' << lst[i].col << '\n';
+	}
+
+	return 0;
 }
