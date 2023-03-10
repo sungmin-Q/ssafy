@@ -1,0 +1,6 @@
+node에서 log의 관리
+기존 -> console.log로 기록을 파일에 남겨 조회
+EJS -> SSR
+EJS: 
+JSP: 요청을 수신 -> java+html형식인 jsp는 완성된 형태의 html을 만들어 return
+      이 과정에서 새 요청마다 html이 만들어져 깜빡임이 발생

@@ -1,0 +1,13 @@
+{"level":"error","message":"error메세지","timestamp":"2023-03-10 12:01:08"}
+{"level":"warn","message":"warn메세지","timestamp":"2023-03-10 12:01:08"}
+{"level":"info","message":"info메세지","timestamp":"2023-03-10 12:01:08"}
+{"level":"debug","message":"debug메세지","timestamp":"2023-03-10 12:01:08"}
+{"level":"error","message":"error메세지","timestamp":"2023-03-10 12:01:16"}
+{"level":"warn","message":"warn메세지","timestamp":"2023-03-10 12:01:16"}
+{"level":"info","message":"info메세지","timestamp":"2023-03-10 12:01:16"}
+{"level":"debug","message":"debug메세지","timestamp":"2023-03-10 12:01:16"}
+{"level":"error","message":"error메세지","timestamp":"2023-03-10 12:01:17"}
+{"level":"warn","message":"warn메세지","timestamp":"2023-03-10 12:01:17"}
+{"level":"info","message":"info메세지","timestamp":"2023-03-10 12:01:17"}
+{"level":"debug","message":"debug메세지","timestamp":"2023-03-10 12:01:17"}
+{"level":"error","message":"error msg","timestamp":"2023-03-10 12:16:17"}

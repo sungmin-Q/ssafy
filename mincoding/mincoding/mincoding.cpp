@@ -3250,39 +3250,59 @@ int main() {
 }
 */
 
+
+//#include <iostream>
+//using namespace std;
+//int main() {
+//	string str;
+//	int len;
+//	while (true) {
+//		cin >> str;
+//		if (str == "0") break;
+//		len = str.length();
+//		bool flag = true;
+//		for (int i = 0; i < len / 2; i++) {
+//			if (str[len - 1 - i] != str[i]) {
+//				cout << "NO";
+//				flag = false;
+//				break;
+//			}	
+//		}
+//		if (flag)
+//			cout << "YES";
+//		cout << '\n';
+//	}
+//}
+
 #include <iostream>
-#include <vector>
 #include <algorithm>
+#include <vector>
 using namespace std;
+
 struct coord {
 	int row;
 	int col;
+	int value;
+	bool operator <(const coord &A) const{
+		return value < A.value;
+	}
 };
-bool compare(coord left, coord right)
-{
-	/*if (left.col == right.col)
-		return left.row < right.row;
-	else {
-		return left.col < right.col;
-	}*/
-	return left.row < right.row;
-	return left.col < right.col;
+vector<coord> lst;
+int arr[11][11];
+int N, M, K;
+void input() {
+	cin >> N >> M >> K;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			cin >> arr[i][j];
+			lst.push_back({ i,j,arr[i][j] });
+		}
+	}
+}
+int main() {
+	input();
+	sort(lst.begin(), lst.end());
+	for (int i = 0; i < lst.size(); i++)
+		cout << lst[i].value << endl;
 }
 
-int main()
-{
-	int n, x, y;
-	cin >> n;
-	vector<coord> lst;
-	for (int i = 0; i < n; i++) {
-		cin >> x >> y;
-		lst.push_back({ x,y });
-	}
-	sort(lst.begin(), lst.end(), compare);
-
-	for (int i = 0; i < n; i++) {
-		cout << lst[i].row << ' ' << lst[i].col << '\n';
-	}
-
-	return 0;
-}
