@@ -1,0 +1,84 @@
+vue_day3
+vuex -> 상태관리 라이브러리
+vue-bootstrap
+backend <-> front연동
+props: 부모 -> 자식으로 데이터 전달
+emit: 자식 -> 부모로 데이터 변경요청
+ex) 컴포너트 여러개 있는 경우 데이터의 전달위해 emit, props 중복되야함 -> vuex의 사용
+store에 데이터를 저장후 꺼내옴, 데이터 변경용이 (전역 상태관리)
+낮은 단계에서 props/emit, 높은 단계에서 vuex
+vue create .
+App.vue
+	child.vue
+		grandchild.vue
+state 데이터 저장소 this.$store.state('키값 접근')
+mutations
+state의 내용을 변경할때 사용
+click버튼을 사용하여 데이터를 변경
+클릭시 store의 데이터가 변경(store)
+this.$store.commit('mutation함수이름',전달인자)
+actions
+비동기 내용을 포함한 state를 변경시 사용
+비동기 호출후 mutation을 호출
+
+vuex
+App.vue -> 로딩바 -> router
+로딩전 -> 로딩바 활성화
+로딩후 -> 로딩바 비활성화
+mutation이용해 활성화 조절
+vue-bootstrap
+라우터에 등록
+litnter singleword
+api.js에서 export를 통해 기능호출
+Main.vue: 단순 /todos로 이동
+ListA.vue: jsonplaceholder의 리스트의 호출
+DetailList.vue: jsonplaceholder의 한가지 호출
+
+로딩바:store의 loading state로 관리
+true인 경우만 보이도록 분기(mutation으로 상태전달)
+v-if = "$store.state.loading"
+import {} from "../../utils/api"
+import {} ?
+
+서버 하나만 돌리기
+vue 대문자 안됨
+8080 서버 사용중
+8081 클라이언트의 사용
+
+backend
+table이름 파악후 접근
+use "table_name"
+show table
+select *from orders;
+views에서 지우면 router에서도 지우기
+*import, export해주기
+비동기통신 backend서버에서 가져오기
+**default에서 , 주의
+this.menus 배열에 담아줌
+DB의 형태를 보고 값을 파악한다.
+munus: 빈배열 길이를 통해 배열의 원소 유무 파악
+v-if else로 간략히 코딩
+v-if !으로 로딩중 수정가능
+bootstrapvue 와 bootstrap 버전 맞춰야함
+npm i bootstrap@4.6.1 bootstrap-vue
+@버전 맞추기 
+가상 dom때문
+Vue.use(BootstrapVue) 전역으로 사용
+로딩중: bootstrap - spinner
+v-for="menu in menus" :key="menu.id"
+<router-link to="/">Home</router-link> |
+router에 연결된 링크로 주소로 이동
+router - index.js 저장 해놓기
+??component 새창으로 가고싶다면?
+path: '/detail/:id' 넣어 줌으로서 세부페이지로 이동
+undefined: 데이터 제대로 잘 받았는지 확인해보기
+methods는 객체, , 함수아님
+route, router 차이
+this.$router.push(`/detail/${id}`); 데이터의 id 정보 출력
+this.$route.params.id;
+detailview data 
+return: -1 (초기값)
+created()
+데이터 입력받은 이후 param에서 id를 입력 받아오는 중
+??route.id
+app.get id 전체 메뉴를 가진 상황에서 다시 요청하는 경우 서버에 부하가중

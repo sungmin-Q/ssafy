@@ -1,0 +1,94 @@
+front
+화면 보여주기, json 데이터 받음, axios(연결다리)
+브라우져에서 동작하는 코드의 구현, 서버동작까지 인지
+npm run serve
+
+SSR(MPA) vs CSR(SPA)
+화면 생성주체에 따라 나눠짐
+SSR - 서버에서 모두 그려준후 클라이언트에게 제공
+완성된 html페이지 자체를 받음(전통적)
+MPA html이 여러개
+server side rendering
+서버에서 화면 만듬
+서버에게 계속 html을 요청
+서버 부하가 비대(새로고침의 발생)
+SEO(검색엔진최적화) 강함 , 최소한의 js
+
+CSR(현대적)
+SPA html이 하나 
+변경사항만 json으로 받아 브라우져의 수정
+client side rendering
+최소한의 html울 받은 후 서버로 데이터 받아 html을 수정
+클라이언트에서 화면 만듬
+최초에 한번 html을 서버로 받은뒤 더이상 요청 않음
+서버 부하 작음(새로고침 미발생, 깜빡임 없음)
+singlepage, multypage
+SEO가 약함, 검색관련
+SPA framework
+angular
+react
+vue
+svelte
+spa의 구현을 위해 프레임워크의 사용이 강제되는지?
+singlepage page application
+프레임워크 없이도 구현가능
+vue js보다 화면조작이 용이 v-if, v-for
+	virtual dom의 사용
+	component의 분리 협업, 유지보수 용이
+	progressive js framework
+	SPA(CSR) 서버의 부담 경감
+	virtual dom dom의 요소(엘리먼트)가 많아지는 경우 핸들링의 어려움, 
+	virtual dom dom을 사용하여
+	dom: html의 object 브라우져의 dom을 직접적으로 접근 하는 경우 브라우져 부하증가
+	실제 dom위에 가상 dom을 올려놓음(liky python)
+	변경사항이 많은 경우: 가상 dom 변경후 모두 변경되었을때 실제 dom을 수정
+	변경사항 많을때 유리함
+컴포넌트
+	화면의 부분을 나눠 조립식 개발, 재사용성의 증가, 유지보수의 용이
+NVVM 패턴
+view - 화면 브라우져
+vuemodel(vue.js)	
+model - 데이터(DB) 서버
+model이 바뀌는 경우
+서버의 값을 바꿔 주는 경우 클라이언트도 변경됨
+view에서 입력 받음, model에 데이터를 저장, view는 중간의 viewmodel에서 담당
+이벤트의 시작위치 view, 이벤트발생시 viewmodel의 callback함수의 호출
+viewmodel의 데이터가 변경되는 경우 view, model을 즉시 변경
+view와 model사이의 의존성을 제거,  서로 몰라도 됨
+data
+	vue instance에서 변수 생성시 사용
+methods
+	vue instance에서 메서드 생성시 사용
+바인딩
+	단방향{{}}, v-bind
+	{{}}값을 보여줄때,
+	v-bind태그의 속성을 변경할때,  값을 내려보낼때(props), 입력시 데이터 변치않음 (축약;) 
+	양방향:v-model
+	v-model:input을 받을때 -> 데이터의 즉시 변화, 축약 없음
+	v-on 이벤트를 받을때 사용, emit할때 사용, 축약 @
+	ex) v-on:click
+	
+	v-if="seen" seen문자열 아닌 seen을 flag로 사용
+	v-for: 반복해서 사용 반드시 key와 함께사용 key는 유일해야함, 중복되는 경우 배열의 인덱스까지 받음
+	vue cli
+		vue프로젝트 생성시 사용
+		vuex, vuej-router등의 추가기능
+		$ vue create [프로젝트 이름]
+		babel -js 호환성위해 사용
+	vue router 서드파티 라이브러리
+	라우터에 컴포넌트를 매핑
+	어떤 url에서 렌더링 할지를 결정함
+	props: 부모에서 자식 컴포넌트로 데이터의 전달,  v-bind의 사용
+	자식에서 props:[]로 받아줌
+	emit: 자식에서 부모함수의 호출 ->자식에서 부모 컴포넌트의 값을 바꿈(이벤트 전달)
+	v-on의 사용 
+	props/emit는 부모자식 관계여야함
+	vuex:상태(state)관리패턴+라이브러리
+	모든 컴포넌트의 중앙저장소
+	props/emit의 반복사용->데이터관리의 어려움
+	props/emit과 함께 사용가능
+	state변경시 => mutation의 사용
+	bootstrap vue 
+	컴포넌트 방식으로 bootstrap을 사용함, 동일한 클래스의 사용
+	bootstrap vue의 해석,
+	bootstrap-vue와 bootstrap 함께 설치해야함 (npm의 사용)

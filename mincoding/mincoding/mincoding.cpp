@@ -3274,35 +3274,166 @@ int main() {
 //	}
 //}
 
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
+//#include <iostream>
+//using namespace std;
+//int N;
+//bool check[11];
+//int arr[11][11];
+//int ans = 1e8;
+//void dfs(int lev, int now) {
+//	if (lev == N / 2) {
+//		int start, link;
+//		start = 0;
+//		link = 0;
+//		for (int i = 0; i < N; i++) {
+//			for (int j = 0; j < N; j++) {
+//				if (check[i] == true && check[j] == true) start += arr[i][j];
+//				if (check[i] == false && check[j] == false) link += arr[i][j];
+//			}
+//		}
+//		ans = min(ans, abs(start - link));
+//		return;
+//	}
+//
+//	for (int i = now; i < N; i++) {
+//		check[i] = true;
+//		dfs(lev + 1, i);
+//		check[i] = false;
+//	}
+//}
+//void input() {
+//	cin >> N;
+//	for (int i = 0; i < N; i++) {
+//		for (int j = 0; j < N; j++) {
+//			cin >> arr[i][j];
+//		}
+//	}
+//}
+//int main() {
+//	input();
+//	dfs(0, 0);
+//	cout << ans;
+//	return 0;
+//}
 
-struct coord {
-	int row;
-	int col;
-	int value;
-	bool operator <(const coord &A) const{
-		return value < A.value;
+//#include <iostream>
+//using namespace std;
+//int N;
+//int path[10];
+//string op;
+//bool visited[10];
+//void dfs(int lev) {
+//	if (lev == N+1) {
+//		for (int i = 0; i <= N; i++) {
+//			cout << path[i] << ' ';
+//		}
+//		cout << endl;
+//		return;
+//	}
+//	for (int i = 0; i < 10; i++) {
+//		if (visited[i] == false) {
+//			if (op[lev] == '<') {
+//				if (path[lev-1] > i) continue;
+//			}
+//			if (op[lev] == '>') {
+//				if (path[lev-1] < i) continue;
+//			}
+//			visited[i] = true;
+//			path[lev] = i;
+//			dfs(lev + 1);
+//			visited[i] = false;
+//			path[lev] = 0;
+//		}
+//	}
+//}
+//void input() {
+//	cin >> N;
+//	for (int i = 0; i < N; i++) {
+//		cin >> op;
+//	}
+//}
+//int main() {
+//	input();
+//	for (int i = 0; i < 10; i++) {
+//		visited[i] = true;
+//		path[0] = i;
+//		dfs(1);
+//		visited[i] = false;
+//	}
+//}
+
+/*
+	플러드필
+	면적구하기,개수구하기
+	모든점에서 면적을 구해줘야함
+*/
+#include <iostream>
+#include <queue>
+using namespace std;
+queue<pair<int,int>> que;
+int N, M;
+int arr[10][10];
+bool visited[10][10];
+int ans;
+int land;
+void bfs(int si,int sj) {
+	que.push({ si,sj });
+	visited[si][sj] = true;
+	land++;					//시작점의 면적 추가
+	while(!que.empty()) {
+		int row = que.front().first;
+		int col = que.front().second;
+		que.pop();
+		
+		int dr[] = { 1,1,0,-1,-1,-1,0,1 };
+		int dc[] = { 0,1,1,1,0,-1,-1,-1 };
+		for (int i = 0; i < 8; i++) {
+			int nr = row + dr[i];
+			int nc = col + dc[i];
+			if (nr < 0 || nc < 0 || nr >= N || nc >= M) continue;
+			if (visited[nr][nc] == false && arr[nr][nc]==1) {
+				visited[nr][nc] = true;
+				que.push({ nr,nc });
+				land++;		//면적
+			}
+		}
 	}
-};
-vector<coord> lst;
-int arr[11][11];
-int N, M, K;
+}
 void input() {
-	cin >> N >> M >> K;
+	cin >> N >> M;
+	if (N == 0 && M == 0)
+		exit(0);
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
 			cin >> arr[i][j];
-			lst.push_back({ i,j,arr[i][j] });
+		}
+	}
+}
+void clear() {
+	while (!que.empty()) que.pop();
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			arr[i][j] = 0;
+			visited[i][j] = false;
 		}
 	}
 }
 int main() {
-	input();
-	sort(lst.begin(), lst.end());
-	for (int i = 0; i < lst.size(); i++)
-		cout << lst[i].value << endl;
+	while (true) {
+		input();
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				if (visited[i][j] == false && arr[i][j] == 1) {
+					cout << i << ' ' << j << endl;
+					bfs(i, j);
+					ans++;			//개수
+				}
+			}
+		}
+		clear();
+		//cout << land;
+		cout << ans <<'\n';
+	}
+	return 0;
 }
 
